@@ -1,3 +1,5 @@
+import Caculator from './caculator/page';
+
 export default function Home() {
-	return <div>Hello</div>;
+	return <Caculator />;
 }
