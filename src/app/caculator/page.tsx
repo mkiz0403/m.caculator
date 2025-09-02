@@ -305,7 +305,7 @@ export default function Receipt() {
 	};
 
 	return (
-		<div className="min-h-screen w-full overflow-y-auto p-2 pb-24">
+		<div className="min-h-screen w-full overflow-y-auto p-2 pb-32">
 			<div className="min-h-full w-full rounded-md border-2 border-gray-300 p-4">
 				<div className="flex flex-col gap-4">
 					<h1 className="text-center text-2xl font-bold">자린고비 영수증 😎</h1>
@@ -684,13 +684,15 @@ export default function Receipt() {
 									isEditMode={isEditMode}
 								/>
 							</Modal>
-							<div className="fixed inset-x-0 bottom-2 z-50 p-6">
-								<button
-									className="w-full rounded-md bg-blue-500 p-4 text-sm text-gray-100"
-									onClick={showDtailModalModal}
-								>
-									상품 추가하기
-								</button>
+							<div className="fixed inset-x-0 bottom-10 z-50">
+								<div className="mx-auto w-full max-w-md px-4 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+									<button
+										className="w-full rounded-md bg-blue-500 py-4 text-sm text-white"
+										onClick={showDtailModalModal}
+									>
+										상품 추가하기
+									</button>
+								</div>
 							</div>
 						</>
 					</div>
