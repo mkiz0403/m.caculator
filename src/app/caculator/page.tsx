@@ -1,7 +1,7 @@
 'use client';
 
 import type { MenuProps } from 'antd';
-import { Button, Dropdown, Modal, Space, message } from 'antd';
+import { Button, Dropdown, Modal, message } from 'antd';
 import { useEffect, useState } from 'react';
 import AddProduct from './AddProduct';
 
@@ -276,16 +276,6 @@ export default function Receipt() {
 		} else {
 			return Math.floor((totalPrice * value) / 100);
 		}
-	};
-
-	// 최종 가격 계산 함수
-	const calculateFinalPrice = (
-		price: number,
-		quantity: number,
-		discountAmount: number,
-	): number => {
-		const totalPrice = price * quantity;
-		return Math.max(0, totalPrice - discountAmount);
 	};
 
 	// 멤버쉽 할인 계산 함수

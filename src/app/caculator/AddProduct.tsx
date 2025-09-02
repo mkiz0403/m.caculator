@@ -1,5 +1,6 @@
 'use client';
 import { Button, Checkbox, Form, Input, Select } from 'antd';
+import React from 'react';
 
 interface AddProductProps {
 	formData: {
@@ -10,7 +11,9 @@ interface AddProductProps {
 		discountType: '원' | '%';
 		isDiscount: boolean;
 	};
-	setFormData: (data: any) => void;
+	setFormData: React.Dispatch<
+		React.SetStateAction<AddProductProps['formData']>
+	>;
 	onSubmit: () => void;
 	onCancel: () => void;
 	isEditMode?: boolean;
