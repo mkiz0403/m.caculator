@@ -308,24 +308,23 @@ export default function Receipt() {
 		<div className="min-h-screen w-full overflow-y-auto p-2 pb-32">
 			<div className="min-h-full w-full rounded-md border-2 border-gray-300 p-4">
 				<div className="flex flex-col gap-4">
-					<div className="flex items-center justify-center gap-2">
-						<h1 className="text-center text-2xl font-bold">자린고비 계산기</h1>
+					<div className="flex items-center justify-center">
 						<Image
 							src="/icons/save-512x512.png"
 							alt="자린고비 계산기"
-							width={48}
-							height={48}
+							width={100}
+							height={100}
 						/>
 					</div>
 					<div className="flex flex-col">
-						<div className="mt-4 flex justify-between">
+						<div className="mt-4 flex justify-end">
 							<div className="flex items-center gap-1.5">
 								<div className="flex items-center gap-2">
-									<span>할인 선택</span>
+									<span>멤버쉽</span>
 									<Dropdown menu={mDiscountMenu} placement="bottomLeft">
 										<Button className="text-[10px]">
 											{mDiscount === 'none'
-												? '할인선택'
+												? '선택 ▽'
 												: mDiscount === 'sevenEarth'
 													? '세븐(우주)'
 													: '세븐(T할인)'}
@@ -333,22 +332,15 @@ export default function Receipt() {
 									</Dropdown>
 								</div>
 								<div className="flex items-center gap-2">
-									<span>카드 선택</span>
+									<span>카드</span>
 									<Dropdown menu={cardDiscountMenu} placement="bottomLeft">
 										<Button className="text-[10px]">
-											{cardDiscount === 'none' ? '카드선택' : '더모아'}
+											{cardDiscount === 'none' ? '선택 ▽' : '더모아'}
 										</Button>
 									</Dropdown>
 								</div>
 							</div>
-							<div className="flex items-center gap-2">
-								<button
-									className="rounded-md bg-red-300 px-4 py-2 text-xs text-white"
-									onClick={confirmResetAll}
-								>
-									초기화
-								</button>
-							</div>
+							<div className="flex items-center gap-2"></div>
 						</div>
 						<div className="border-b border-dashed border-gray-500 pt-6 pb-4">
 							<div className="mb-2 flex items-start justify-between">
@@ -686,10 +678,16 @@ export default function Receipt() {
 									isEditMode={isEditMode}
 								/>
 							</Modal>
-							<div className="fixed inset-x-0 bottom-10 z-50">
-								<div className="mx-auto w-full max-w-md px-4 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+							<div className="fixed inset-x-0 bottom-0 z-50">
+								<div className="mx-auto flex w-full max-w-md gap-2 px-2 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
 									<button
-										className="w-full rounded-md bg-blue-500 py-4 text-sm text-white"
+										className="rounded-md bg-red-300 px-6 py-4 text-sm text-white"
+										onClick={confirmResetAll}
+									>
+										초기화
+									</button>
+									<button
+										className="w-3/4 rounded-md bg-blue-500 px-6 py-4 text-sm text-white"
 										onClick={showDtailModalModal}
 									>
 										상품 추가하기
