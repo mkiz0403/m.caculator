@@ -2,9 +2,9 @@
 
 import type { MenuProps } from 'antd';
 import { Button, Dropdown, Modal, message } from 'antd';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import AddProduct from './AddProduct';
-
 interface Product {
 	id: string;
 	name?: string;
@@ -308,7 +308,15 @@ export default function Receipt() {
 		<div className="min-h-screen w-full overflow-y-auto p-2 pb-32">
 			<div className="min-h-full w-full rounded-md border-2 border-gray-300 p-4">
 				<div className="flex flex-col gap-4">
-					<h1 className="text-center text-2xl font-bold">자린고비 영수증 😎</h1>
+					<div className="flex items-center justify-center gap-2">
+						<h1 className="text-center text-2xl font-bold">자린고비 계산기</h1>
+						<Image
+							src="/icons/save-512x512.png"
+							alt="자린고비 계산기"
+							width={48}
+							height={48}
+						/>
+					</div>
 					<div className="flex flex-col">
 						<div className="mt-4 flex justify-between">
 							<div className="flex items-center gap-1.5">
@@ -379,25 +387,22 @@ export default function Receipt() {
 						>
 							<thead className="sticky top-0 z-10 bg-white">
 								<tr className="border-b border-dashed border-gray-500">
-									<th className="border-none border-blue-500 text-center font-bold">
-										순번
-									</th>
-									<th className="border-none border-blue-500 p-2 text-center font-bold">
+									<th className="border-none border-blue-500 text-left font-bold">
 										상품명
 									</th>
-									<th className="border-none border-blue-500 p-2 text-center font-bold">
+									<th className="w-1/7 border-none border-blue-500 text-center font-bold">
 										단가
 									</th>
-									<th className="border-none border-blue-500 text-center font-bold">
+									<th className="w-1/8 border-none border-blue-500 text-center font-bold">
 										수량
 									</th>
-									<th className="border-none border-blue-500 p-1.5 text-center font-bold">
+									<th className="w-1/7 border-none border-blue-500 text-center font-bold">
 										할인
 									</th>
-									<th className="border-none border-blue-500 p-1.5 text-center font-bold">
+									<th className="w-1/7 border-none border-blue-500 text-center font-bold">
 										금액
 									</th>
-									<th className="border-none border-blue-500 p-1 text-center font-bold">
+									<th className="w-1/4 border-none border-blue-500 text-center font-bold">
 										수정 / 삭제
 									</th>
 								</tr>
@@ -435,25 +440,22 @@ export default function Receipt() {
 
 									return (
 										<tr key={product.id} className="text-xs">
-											<td className="border-none border-blue-500 text-center">
-												{index + 1}
-											</td>
-											<td className="border-none border-blue-500 p-2 text-center font-bold">
+											<td className="border-none border-blue-500 text-left font-bold">
 												{product.name || '상품'}
 											</td>
-											<td className="border-none border-blue-500 p-1.5 text-center">
+											<td className="border-none border-blue-500 text-center">
 												{product.price.toLocaleString()}
 											</td>
-											<td className="border-none border-blue-500 p-1 text-center">
+											<td className="border-none border-blue-500 text-center">
 												{product.quantity}
 											</td>
-											<td className="border-none border-blue-500 p-1.5 text-center">
+											<td className="border-none border-blue-500 text-center">
 												<div className="flex flex-col gap-1">
 													{/* 상품별 할인 (추가 할인) */}
 													{product.discountValue > 0 && (
 														<span className="text-xs">
 															{product.discountType === '원'
-																? `${product.discountValue.toLocaleString()}원`
+																? `${product.discountValue.toLocaleString()}`
 																: `${product.discountValue}%`}
 														</span>
 													)}
@@ -464,12 +466,12 @@ export default function Receipt() {
 														product.discountValue === 0 &&
 														membershipDiscountAmount > 0 && (
 															<span className="text-xs text-blue-500">
-																{membershipDiscountAmount.toLocaleString()}원
+																{membershipDiscountAmount.toLocaleString()}
 															</span>
 														)}
 												</div>
 											</td>
-											<td className="border-none border-blue-500 p-1.5 text-center">
+											<td className="border-none border-blue-500 text-center">
 												{finalPrice.toLocaleString()}
 											</td>
 											<td className="border-none border-blue-500 text-center">
