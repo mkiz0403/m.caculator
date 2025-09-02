@@ -74,6 +74,7 @@ export default function Receipt() {
 		} catch (e) {
 			console.error('Failed to load from localStorage', e);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// 변경 시: 상태 → localStorage 저장
@@ -362,8 +363,8 @@ export default function Receipt() {
 								}
 								return discounts.length > 0 ? (
 									<div className="flex flex-col gap-1 text-sm text-blue-500">
-										{discounts.map((discount, index) => (
-											<span key={index}>✅ {discount}</span>
+										{discounts.map((discount) => (
+											<span key={discount}>✅ {discount}</span>
 										))}
 									</div>
 								) : (
@@ -400,7 +401,7 @@ export default function Receipt() {
 								</tr>
 							</thead>
 							<tbody>
-								{products.map((product, index) => {
+								{products.map((product) => {
 									const totalPrice = product.price * product.quantity;
 
 									// 상품별 할인 금액
