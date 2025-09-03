@@ -20,7 +20,9 @@ export default function Receipt() {
 	const [mDiscount, setMDiscount] = useState<'none' | 'sevenEarth' | 'sevenT'>(
 		'none',
 	);
-	const [cardDiscount, setCardDiscount] = useState<'none' | 'theMoa'>('none');
+	const [cardDiscount, setCardDiscount] = useState<
+		'none' | 'theMoa' | 'HDzero'
+	>('none');
 	const [products, setProducts] = useState<Product[]>([]); // 상품 담을곳
 	const [formData, setFormData] = useState({
 		name: '',
@@ -69,7 +71,7 @@ export default function Receipt() {
 			if (md === 'none' || md === 'sevenEarth' || md === 'sevenT') {
 				setMDiscount(md as typeof mDiscount);
 			}
-			if (cd === 'none' || cd === 'theMoa') {
+			if (cd === 'none' || cd === 'theMoa' || cd === 'HDzero') {
 				setCardDiscount(cd as typeof cardDiscount);
 			}
 		} catch (e) {
@@ -110,9 +112,10 @@ export default function Receipt() {
 		items: [
 			{ key: 'none', label: '없음' },
 			{ key: 'theMoa', label: '더모아' },
+			{ key: 'HDzero', label: '현대Zero' },
 		],
 		onClick: ({ key }) => {
-			if (key === 'none' || key === 'theMoa') {
+			if (key === 'none' || key === 'theMoa' || key === 'HDzero') {
 				setCardDiscount(key);
 			}
 		},
@@ -307,7 +310,7 @@ export default function Receipt() {
 	};
 
 	return (
-		<div className="min-h-full w-full overflow-y-auto p-2 pb-20">
+		<div className="w-full overflow-y-auto px-2 pt-4 pb-24">
 			<div className="min-h-full w-full rounded-md border-2 border-gray-300 p-4">
 				<div className="flex flex-col gap-4">
 					<div className="flex items-center justify-center">
@@ -324,7 +327,7 @@ export default function Receipt() {
 								<div className="flex items-center gap-2">
 									<span className="text-sm">멤버쉽</span>
 									<Dropdown menu={mDiscountMenu}>
-										<Button>
+										<Button className="w-28">
 											<Space>
 												{mDiscount === 'none'
 													? '선택'
@@ -339,9 +342,13 @@ export default function Receipt() {
 								<div className="flex items-center gap-2">
 									<span className="text-sm">카드</span>
 									<Dropdown menu={cardDiscountMenu}>
-										<Button>
+										<Button className="w-28">
 											<Space>
-												{cardDiscount === 'none' ? '선택' : '더모아'}
+												{cardDiscount === 'none'
+													? '선택'
+													: cardDiscount === 'theMoa'
+														? '더모아'
+														: '현대제로'}
 												<DownOutlined />
 											</Space>
 										</Button>
@@ -359,14 +366,22 @@ export default function Receipt() {
 								if (mDiscount && mDiscount !== 'none') {
 									if (mDiscount === 'sevenEarth')
 										discounts.push(
-											'세븐(우주패스) 멤버쉽 할인 적용중이에요 🚀',
+											'세븐(우주패스) 멤버쉽 할인 적용중이에요 🚀(1,000원당 300원 할인)',
 										);
 									if (mDiscount === 'sevenT')
-										discounts.push('세븐(T할인) 멤버쉽 할인 적용중이에요 💰');
+										discounts.push(
+											'세븐(T할인) 멤버쉽 할인 적용중이에요 💰(1,000원당 100원 할인)',
+										);
 								}
 								if (cardDiscount && cardDiscount !== 'none') {
 									if (cardDiscount === 'theMoa')
-										discounts.push('더모아 카드할인이 적용중이에요 💳');
+										discounts.push(
+											'더모아 카드할인이 적용중이에요 💳 (5,000원 이상 결제 시, 999원 이하 포인트 지급)',
+										);
+									if (cardDiscount === 'HDzero')
+										discounts.push(
+											'현대제로 카드할인이 적용중이에요 💳 (결제금액 7% 청구할인)',
+										);
 								}
 								return discounts.length > 0 ? (
 									<div className="flex flex-col gap-1 text-sm text-blue-500">
@@ -665,6 +680,15 @@ export default function Receipt() {
 															</span>
 														</div>
 													)}
+												{cardDiscount === 'HDzero' && (
+													<div className="flex flex-col gap-1 rounded-md border border-blue-400 p-2">
+														<span className="text-sm font-medium text-blue-500">
+															현대 제로카드 결제 시{' '}
+															{Math.floor(totalPayment * 0.07).toLocaleString()}
+															원을 청구할인 받을 수 있어요 🎉
+														</span>
+													</div>
+												)}
 											</>
 										);
 									})()}
@@ -687,7 +711,7 @@ export default function Receipt() {
 								/>
 							</Modal>
 							<div className="fixed inset-x-0 bottom-0 z-50">
-								<div className="mx-auto flex w-full max-w-[580px] gap-2 bg-white px-2 pt-1 pb-4">
+								<div className="mx-auto flex w-full max-w-[580px] gap-2 bg-white px-2 pt-1 pb-6">
 									<button
 										className="w-20 rounded-md bg-red-300 px-2 py-4 text-sm text-white"
 										onClick={confirmResetAll}
