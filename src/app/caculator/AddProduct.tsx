@@ -43,7 +43,9 @@ export default function AddProduct({
 					/>
 				</div>
 				<div className="flex flex-col gap-1">
-					<span>단가</span>
+					<span>
+						단가<span className="text-red-500"> *</span>
+					</span>
 					<Input
 						type="number"
 						className="rounded-sm border border-blue-500"
@@ -55,7 +57,9 @@ export default function AddProduct({
 					/>
 				</div>
 				<div className="flex flex-col gap-1">
-					<span>수량</span>
+					<span>
+						수량<span className="text-red-500"> *</span>
+					</span>
 					<Input
 						type="number"
 						className="rounded-sm border border-blue-500"
