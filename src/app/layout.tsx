@@ -20,23 +20,23 @@ export const metadata: Metadata = {
 		statusBarStyle: 'default',
 		startupImage: [
 			{
-				url: '/icons/save-192x192.png',
+				url: '/icons/android-launchericon-96-96.png',
 				media: '(device-width: 320px) and (device-height: 568px)',
 			},
 			{
-				url: '/icons/save-192x192.png',
+				url: '/icons/android-launchericon-96-96.png',
 				media: '(device-width: 375px) and (device-height: 667px)',
 			},
 			{
-				url: '/icons/save-192x192.png',
+				url: '/icons/android-launchericon-96-96.png',
 				media: '(device-width: 414px) and (device-height: 736px)',
 			},
 			{
-				url: '/icons/save-192x192.png',
+				url: '/icons/android-launchericon-96-96.png',
 				media: '(device-width: 375px) and (device-height: 812px)',
 			},
 			{
-				url: '/icons/save-192x192.png',
+				url: '/icons/android-launchericon-96-96.png',
 				media: '(device-width: 414px) and (device-height: 896px)',
 			},
 		],
@@ -46,12 +46,12 @@ export const metadata: Metadata = {
 		{ rel: 'icon', url: '/icons/save-192x192.png' },
 		{
 			rel: 'apple-touch-icon',
-			url: '/icons/save-192x192.png',
+			url: '/icons/android-launchericon-192-192.png',
 			sizes: '192x192',
 		},
 		{
 			rel: 'apple-touch-icon',
-			url: '/icons/save-512x512.png',
+			url: '/icons/android-launchericon-512-512.png',
 			sizes: '512x512',
 		},
 	],
