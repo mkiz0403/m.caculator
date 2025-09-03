@@ -13,10 +13,10 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-	title: '자린고비 계산기',
+	title: 'SALTBOY',
 	appleWebApp: {
 		capable: true,
-		title: '자린고비 계산기',
+		title: 'SALTBOY',
 		statusBarStyle: 'default',
 		startupImage: [
 			{
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
 		'mobile-web-app-capable': 'yes',
 		'apple-mobile-web-app-capable': 'yes',
 		'apple-mobile-web-app-status-bar-style': 'default',
-		'apple-mobile-web-app-title': 'Kicky',
+		'apple-mobile-web-app-title': 'SALTBOY',
 		'google-site-verification': 'kfhTAwt898PHjLHAtEM00_iiGfO96HSV3vXAtQblB7M',
 		'naver-site-verification': 'eb04d1e2f6bacb35aed2e101935974f302d390fd',
 		// 카카오톡 전용 메타데이터
