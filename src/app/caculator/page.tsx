@@ -663,7 +663,7 @@ export default function Receipt() {
 																</span>
 																<span className="text-sm text-blue-500">
 																	뒷자리 {maxTheMoaDiscount.toLocaleString()}원
-																	한도내에서 추가 상품 구매를 하면 최대할인을
+																	한도내에서 추가 상품 구매를 하면 최대적립을
 																	받을 수 있어요😀
 																</span>
 															</div>
