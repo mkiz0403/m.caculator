@@ -650,7 +650,7 @@ export default function Receipt() {
 													<>
 														<div className="flex justify-between text-sm">
 															<span className="text-gray-400">
-																더모아 할인 금액:
+																더모아 적립 금액:
 															</span>
 															<span className="text-blue-500">
 																(-) {theMoaDiscount.toLocaleString()}원
