@@ -97,7 +97,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="h-full">
-			<body className="h-full bg-white">
+			<body className="h-full bg-gray-100">
 				{process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
 					<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
 				)}
