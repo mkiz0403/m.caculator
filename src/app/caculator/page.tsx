@@ -1,7 +1,8 @@
 'use client';
 
+import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Button, Dropdown, Modal, message } from 'antd';
+import { Button, Dropdown, Modal, Space, message } from 'antd';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import AddProduct from './AddProduct';
@@ -306,7 +307,7 @@ export default function Receipt() {
 	};
 
 	return (
-		<div className="min-h-screen w-full overflow-y-auto p-2 pb-32">
+		<div className="min-h-full w-full overflow-y-auto p-2 pb-32">
 			<div className="min-h-full w-full rounded-md border-2 border-gray-300 p-4">
 				<div className="flex flex-col gap-4">
 					<div className="flex items-center justify-center">
@@ -319,24 +320,30 @@ export default function Receipt() {
 					</div>
 					<div className="flex flex-col">
 						<div className="mt-4 flex justify-end">
-							<div className="flex items-center gap-1.5">
+							<div className="flex items-center gap-4">
 								<div className="flex items-center gap-2">
-									<span>멤버쉽</span>
-									<Dropdown menu={mDiscountMenu} placement="bottomLeft">
-										<Button className="text-[10px]">
-											{mDiscount === 'none'
-												? '선택 ▽'
-												: mDiscount === 'sevenEarth'
-													? '세븐(우주)'
-													: '세븐(T할인)'}
+									<span className="text-sm">멤버쉽</span>
+									<Dropdown menu={mDiscountMenu}>
+										<Button>
+											<Space>
+												{mDiscount === 'none'
+													? '선택'
+													: mDiscount === 'sevenEarth'
+														? '세븐(우주)'
+														: '세븐(T할인)'}
+												<DownOutlined />
+											</Space>
 										</Button>
 									</Dropdown>
 								</div>
 								<div className="flex items-center gap-2">
-									<span>카드</span>
-									<Dropdown menu={cardDiscountMenu} placement="bottomLeft">
-										<Button className="text-[10px]">
-											{cardDiscount === 'none' ? '선택 ▽' : '더모아'}
+									<span className="text-sm">카드</span>
+									<Dropdown menu={cardDiscountMenu}>
+										<Button>
+											<Space>
+												{cardDiscount === 'none' ? '선택' : '더모아'}
+												<DownOutlined />
+											</Space>
 										</Button>
 									</Dropdown>
 								</div>
@@ -679,7 +686,7 @@ export default function Receipt() {
 									isEditMode={isEditMode}
 								/>
 							</Modal>
-							<div className="fixed inset-x-0 bottom-0 z-50">
+							<div className="fixed inset-x-0 bottom-4 z-50">
 								<div className="mx-auto flex w-full max-w-md gap-2 px-2 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
 									<button
 										className="rounded-md bg-red-300 px-6 py-4 text-sm text-white"
