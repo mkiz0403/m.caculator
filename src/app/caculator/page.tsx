@@ -333,7 +333,7 @@ export default function Receipt() {
 								<div className="flex items-center gap-2">
 									<span className="text-base">멤버쉽</span>
 									<Dropdown menu={mDiscountMenu}>
-										<Button className="custom-select w-28" size="large">
+										<Button className="custom-select w-30" size="large">
 											<Space>
 												{mDiscount === 'none'
 													? '선택'
