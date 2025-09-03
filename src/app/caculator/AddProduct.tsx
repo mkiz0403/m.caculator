@@ -40,6 +40,7 @@ export default function AddProduct({
 					<Input
 						className="custom-select flex rounded-sm border border-blue-500"
 						size="large"
+						style={{ height: '48px' }}
 						value={formData.name}
 						onChange={(e) => setFormData({ ...formData, name: e.target.value })}
 						placeholder="상품명을 입력하세요"
@@ -53,6 +54,7 @@ export default function AddProduct({
 						type="number"
 						className="custom-select rounded-sm border border-blue-500"
 						size="large"
+						style={{ height: '48px' }}
 						value={formData.price}
 						onChange={(e) =>
 							setFormData({ ...formData, price: e.target.value })
@@ -68,6 +70,7 @@ export default function AddProduct({
 						type="number"
 						size="large"
 						className="custom-select rounded-sm border border-blue-500"
+						style={{ height: '48px' }}
 						value={formData.quantity}
 						onChange={(e) =>
 							setFormData({ ...formData, quantity: e.target.value })
@@ -82,6 +85,7 @@ export default function AddProduct({
 							className="custom-select"
 							size="large"
 							type="number"
+							style={{ height: '48px' }}
 							value={formData.discountValue}
 							onChange={(e) =>
 								setFormData({ ...formData, discountValue: e.target.value })
@@ -91,8 +95,9 @@ export default function AddProduct({
 							}
 						/>
 						<Select
-							className="custom-select w-20"
+							className="custom-select w-20 text-base"
 							size="large"
+							style={{ height: '48px' }}
 							value={formData.discountType}
 							onChange={(value) =>
 								setFormData({
@@ -136,17 +141,19 @@ export default function AddProduct({
 				</div>
 				<div className="flex justify-between gap-2">
 					<Button
-						className="custom-select w-full"
+						className="custom-select h-14 w-full text-base"
 						onClick={onCancel}
 						size="large"
+						style={{ height: '48px' }}
 					>
 						취소하기
 					</Button>
 					<Button
-						className="custom-select w-full bg-blue-300"
+						className="custom-select w-full bg-blue-300 text-base"
 						type="primary"
 						htmlType="submit"
 						size="large"
+						style={{ height: '48px' }}
 					>
 						{isEditMode ? '수정하기' : '추가하기'}
 					</Button>

@@ -323,7 +323,7 @@ export default function Receipt() {
 						<div className="flex flex-col gap-1 pr-8">
 							<h1 className="text-4xl font-bold">SALTBOY</h1>
 							<span className="flex items-start pl-0.5 text-xs text-gray-500">
-								마이웨이 자린고비 정신무장
+								효율적인 소비생활을 추구해요
 							</span>
 						</div>
 					</div>
@@ -331,9 +331,9 @@ export default function Receipt() {
 						<div className="mt-4 flex justify-end">
 							<div className="flex items-center gap-4">
 								<div className="flex items-center gap-2">
-									<span className="text-sm">멤버쉽</span>
+									<span className="text-base">멤버쉽</span>
 									<Dropdown menu={mDiscountMenu}>
-										<Button className="custom-select w-28" size="middle">
+										<Button className="custom-select w-28" size="large">
 											<Space>
 												{mDiscount === 'none'
 													? '선택'
@@ -346,9 +346,9 @@ export default function Receipt() {
 									</Dropdown>
 								</div>
 								<div className="flex items-center gap-2">
-									<span className="text-sm">카드</span>
+									<span className="text-base">카드</span>
 									<Dropdown menu={cardDiscountMenu}>
-										<Button className="w-28">
+										<Button className="w-28" size="large">
 											<Space>
 												{cardDiscount === 'none'
 													? '선택'
