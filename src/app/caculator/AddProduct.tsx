@@ -133,7 +133,11 @@ export default function AddProduct({
 					<Button className="w-full" onClick={onCancel}>
 						취소하기
 					</Button>
-					<Button className="w-full" type="primary" htmlType="submit">
+					<Button
+						className="w-full bg-blue-300"
+						type="primary"
+						htmlType="submit"
+					>
 						{isEditMode ? '수정하기' : '추가하기'}
 					</Button>
 				</div>

@@ -312,14 +312,20 @@ export default function Receipt() {
 	return (
 		<div className="w-full overflow-y-auto px-2 pt-4 pb-24">
 			<div className="min-h-full w-full rounded-md border-2 border-gray-300 p-4">
-				<div className="flex flex-col gap-4">
+				<div className="flex flex-col gap-2">
 					<div className="flex items-center justify-center">
 						<Image
-							src="/icons/save-512x512.png"
-							alt="자린고비 계산기"
+							src="/icons/saltboy2.png"
+							alt="짠돌이"
 							width={100}
 							height={100}
 						/>
+						<div className="flex flex-col gap-1 pr-8">
+							<h1 className="text-4xl font-bold">SALTBOY</h1>
+							<span className="flex items-start pl-0.5 text-xs text-gray-500">
+								마이웨이 자린고비 정신무장
+							</span>
+						</div>
 					</div>
 					<div className="flex flex-col">
 						<div className="mt-4 flex justify-end">
@@ -493,7 +499,7 @@ export default function Receipt() {
 												<div className="flex justify-center gap-1">
 													<button
 														onClick={() => handleEditProduct(product)}
-														className="rounded-sm bg-blue-300 px-2 py-1 text-center text-white"
+														className="rounded-sm bg-blue-400 px-2 py-1 text-center text-white"
 													>
 														수정
 													</button>
@@ -720,7 +726,7 @@ export default function Receipt() {
 										초기화
 									</button>
 									<button
-										className="w-full rounded-md bg-blue-500 px-6 py-4 text-sm text-white"
+										className="w-full rounded-md bg-blue-400 px-6 py-4 text-sm text-white"
 										onClick={showDtailModalModal}
 									>
 										상품 추가하기
