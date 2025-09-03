@@ -687,15 +687,15 @@ export default function Receipt() {
 								/>
 							</Modal>
 							<div className="fixed inset-x-0 bottom-0 z-50">
-								<div className="mx-auto mb-4 flex w-full max-w-md gap-2 bg-white px-2 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+								<div className="mx-auto flex w-full max-w-md gap-2 bg-white px-2 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
 									<button
-										className="rounded-md bg-red-300 px-6 py-4 text-sm text-white"
+										className="mb-4 rounded-md bg-red-300 px-6 py-4 text-sm text-white"
 										onClick={confirmResetAll}
 									>
 										초기화
 									</button>
 									<button
-										className="w-3/4 rounded-md bg-blue-500 px-6 py-4 text-sm text-white"
+										className="mb-4 w-3/4 rounded-md bg-blue-500 px-6 py-4 text-sm text-white"
 										onClick={showDtailModalModal}
 									>
 										상품 추가하기
