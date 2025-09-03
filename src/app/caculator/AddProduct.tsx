@@ -34,11 +34,12 @@ export default function AddProduct({
 
 	return (
 		<div className="flex flex-col items-start gap-5">
-			<Form className="flex flex-col gap-4 p-2" onFinish={handleSubmit}>
-				<div className="flex flex-col gap-1">
+			<Form className="flex w-full flex-col gap-4 p-2" onFinish={handleSubmit}>
+				<div className="flex w-full flex-col gap-1">
 					<span>상품명</span>
 					<Input
-						className="rounded-sm border border-blue-500"
+						className="custom-select flex rounded-sm border border-blue-500"
+						size="large"
 						value={formData.name}
 						onChange={(e) => setFormData({ ...formData, name: e.target.value })}
 						placeholder="상품명을 입력하세요"
@@ -50,7 +51,8 @@ export default function AddProduct({
 					</span>
 					<Input
 						type="number"
-						className="rounded-sm border border-blue-500"
+						className="custom-select rounded-sm border border-blue-500"
+						size="large"
 						value={formData.price}
 						onChange={(e) =>
 							setFormData({ ...formData, price: e.target.value })
@@ -64,7 +66,8 @@ export default function AddProduct({
 					</span>
 					<Input
 						type="number"
-						className="rounded-sm border border-blue-500"
+						size="large"
+						className="custom-select rounded-sm border border-blue-500"
 						value={formData.quantity}
 						onChange={(e) =>
 							setFormData({ ...formData, quantity: e.target.value })
@@ -76,8 +79,9 @@ export default function AddProduct({
 					<span>추가 할인</span>
 					<div className="flex justify-between gap-1">
 						<Input
+							className="custom-select"
+							size="large"
 							type="number"
-							className="rounded-sm border border-blue-500"
 							value={formData.discountValue}
 							onChange={(e) =>
 								setFormData({ ...formData, discountValue: e.target.value })
@@ -87,7 +91,8 @@ export default function AddProduct({
 							}
 						/>
 						<Select
-							className="w-20"
+							className="custom-select w-20"
+							size="large"
 							value={formData.discountType}
 							onChange={(value) =>
 								setFormData({
@@ -113,30 +118,35 @@ export default function AddProduct({
 					</div>
 					{mDiscount === 'none' && (
 						<span className="text-xs text-red-400">
-							⚠️ 멤버쉽 또는 카드할인에서 제외되는 상품일 경우 체크해주세요
+							멤버쉽 또는 카드할인에서 제외되는 상품일 경우 체크해주세요
 						</span>
 					)}
 					{mDiscount === 'sevenT' && (
 						<span className="text-xs text-red-400">
-							⚠️ 1+1, 2+1 등 이벤트 상품 및 주류, 담배 등은 멤버쉽 할인 대상이
+							1+1, 2+1 등 이벤트 상품 및 주류, 담배 등은 멤버쉽 할인 대상이
 							아닙니다
 						</span>
 					)}
 					{mDiscount === 'sevenEarth' && (
 						<span className="text-xs text-red-400">
-							⚠️ 1+1, 2+1 등 이벤트 상품 및 주류, 담배 등은 멤버쉽 할인 대상이
+							1+1, 2+1 등 이벤트 상품 및 주류, 담배 등은 멤버쉽 할인 대상이
 							아닙니다
 						</span>
 					)}
 				</div>
 				<div className="flex justify-between gap-2">
-					<Button className="w-full" onClick={onCancel}>
+					<Button
+						className="custom-select w-full"
+						onClick={onCancel}
+						size="large"
+					>
 						취소하기
 					</Button>
 					<Button
-						className="w-full bg-blue-300"
+						className="custom-select w-full bg-blue-300"
 						type="primary"
 						htmlType="submit"
+						size="large"
 					>
 						{isEditMode ? '수정하기' : '추가하기'}
 					</Button>
