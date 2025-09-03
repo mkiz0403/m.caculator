@@ -686,8 +686,8 @@ export default function Receipt() {
 									isEditMode={isEditMode}
 								/>
 							</Modal>
-							<div className="fixed inset-x-0 bottom-4 z-50">
-								<div className="mx-auto flex w-full max-w-md gap-2 px-2 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+							<div className="fixed inset-x-0 bottom-0 z-50">
+								<div className="mx-auto mb-4 flex w-full max-w-md gap-2 bg-white px-2 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
 									<button
 										className="rounded-md bg-red-300 px-6 py-4 text-sm text-white"
 										onClick={confirmResetAll}
