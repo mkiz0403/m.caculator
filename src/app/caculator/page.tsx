@@ -246,7 +246,7 @@ export default function Receipt() {
 	const confirmResetAll = () => {
 		Modal.confirm({
 			title: '전체 초기화',
-			content: `모든 상품과 선택한 할인 설정을 초기화합니다.\n 모든 설정을 초기화 하시겠습니까? `,
+			content: `모든 상품과 선택한 할인 설정을 초기화합니다. \n 모든 설정을 초기화 하시겠습니까? `,
 			okText: '초기화',
 			cancelText: '취소',
 			okButtonProps: { danger: true },
@@ -307,7 +307,7 @@ export default function Receipt() {
 	};
 
 	return (
-		<div className="min-h-full w-full overflow-y-auto p-2 pb-32">
+		<div className="min-h-full w-full overflow-y-auto p-2 pb-20">
 			<div className="min-h-full w-full rounded-md border-2 border-gray-300 p-4">
 				<div className="flex flex-col gap-4">
 					<div className="flex items-center justify-center">
@@ -687,15 +687,15 @@ export default function Receipt() {
 								/>
 							</Modal>
 							<div className="fixed inset-x-0 bottom-0 z-50">
-								<div className="mx-auto flex w-full max-w-md gap-2 bg-white px-2 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+								<div className="mx-auto flex w-full max-w-[580px] gap-2 bg-white px-2 pt-1 pb-4">
 									<button
-										className="mb-4 rounded-md bg-red-300 px-6 py-4 text-sm text-white"
+										className="w-20 rounded-md bg-red-300 px-2 py-4 text-sm text-white"
 										onClick={confirmResetAll}
 									>
 										초기화
 									</button>
 									<button
-										className="mb-4 w-3/4 rounded-md bg-blue-500 px-6 py-4 text-sm text-white"
+										className="w-full rounded-md bg-blue-500 px-6 py-4 text-sm text-white"
 										onClick={showDtailModalModal}
 									>
 										상품 추가하기
