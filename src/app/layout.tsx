@@ -98,9 +98,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="h-full">
 			<body className="h-full bg-white">
-				{process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-					<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-				)}
+				<GoogleAnalytics />
 				<div className="flex h-full w-full bg-white">
 					<div className="mx-auto flex h-full w-full max-w-[580px] min-w-[320px] flex-col items-start overflow-hidden p-0 text-xs text-black">
 						<Providers>{children}</Providers>
