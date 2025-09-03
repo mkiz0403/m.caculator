@@ -620,7 +620,7 @@ export default function Receipt() {
 												</div>
 												<div className="flex justify-between text-sm">
 													<span className="text-gray-400">
-														할인 적용 금액:{' '}
+														할인 적용 금액 (일반):{' '}
 													</span>
 													<span className="text-gray-900">
 														(-) {productDiscountTotal.toLocaleString()}원
@@ -628,7 +628,7 @@ export default function Receipt() {
 												</div>
 												<div className="flex justify-between text-sm">
 													<span className="text-gray-400">
-														M할인 적용 금액:{' '}
+														할인 적용 금액 (멤버쉽):{' '}
 													</span>
 													<span className="text-blue-500">
 														(-) {membershipDiscountTotal.toLocaleString()}원
@@ -699,7 +699,7 @@ export default function Receipt() {
 								open={isOpenDetailInputModal}
 								onCancel={handleCancel}
 								footer={null}
-								width={300}
+								width={420}
 								centered={true}
 							>
 								<AddProduct
@@ -708,6 +708,7 @@ export default function Receipt() {
 									onSubmit={isEditMode ? updateProduct : createProducts}
 									onCancel={handleCancel}
 									isEditMode={isEditMode}
+									mDiscount={mDiscount}
 								/>
 							</Modal>
 							<div className="fixed inset-x-0 bottom-0 z-50">

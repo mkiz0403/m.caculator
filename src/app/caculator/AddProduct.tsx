@@ -17,6 +17,7 @@ interface AddProductProps {
 	onSubmit: () => void;
 	onCancel: () => void;
 	isEditMode?: boolean;
+	mDiscount: 'none' | 'sevenEarth' | 'sevenT';
 }
 
 export default function AddProduct({
@@ -25,6 +26,7 @@ export default function AddProduct({
 	onSubmit,
 	onCancel,
 	isEditMode = false,
+	mDiscount,
 }: AddProductProps) {
 	const handleSubmit = () => {
 		onSubmit();
@@ -109,10 +111,23 @@ export default function AddProduct({
 						/>
 						<span>할인 제외 품목</span>
 					</div>
-					<span className="text-xs text-red-400">
-						⚠️ 1+1, 2+1 등 이벤트 상품 및 주류, 담배 등은 멤버쉽 할인 대상이
-						아닙니다
-					</span>
+					{mDiscount === 'none' && (
+						<span className="text-xs text-red-400">
+							⚠️ 멤버쉽 또는 카드할인에서 제외되는 상품일 경우 체크해주세요
+						</span>
+					)}
+					{mDiscount === 'sevenT' && (
+						<span className="text-xs text-red-400">
+							⚠️ 1+1, 2+1 등 이벤트 상품 및 주류, 담배 등은 멤버쉽 할인 대상이
+							아닙니다
+						</span>
+					)}
+					{mDiscount === 'sevenEarth' && (
+						<span className="text-xs text-red-400">
+							⚠️ 1+1, 2+1 등 이벤트 상품 및 주류, 담배 등은 멤버쉽 할인 대상이
+							아닙니다
+						</span>
+					)}
 				</div>
 				<div className="flex justify-between gap-2">
 					<Button className="w-full" onClick={onCancel}>
