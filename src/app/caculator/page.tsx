@@ -5,7 +5,7 @@ import type { MenuProps } from 'antd';
 import { Button, Dropdown, Modal, Space, message } from 'antd';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import AddProduct from './AddProduct';
+import AddProductModal from './entities/ui/AddProductModal';
 interface Product {
 	id: string;
 	name?: string;
@@ -709,23 +709,16 @@ export default function Receipt() {
 										})()}
 									</div>
 								</div>
-								<Modal
-									title={isEditMode ? '상품 수정하기' : '상품 추가하기'}
-									open={isOpenDetailInputModal}
+								<AddProductModal
+									formData={formData}
+									setFormData={setFormData}
+									onSubmit={isEditMode ? updateProduct : createProducts}
 									onCancel={handleCancel}
-									footer={null}
-									width={420}
-									centered={true}
-								>
-									<AddProduct
-										formData={formData}
-										setFormData={setFormData}
-										onSubmit={isEditMode ? updateProduct : createProducts}
-										onCancel={handleCancel}
-										isEditMode={isEditMode}
-										mDiscount={mDiscount}
-									/>
-								</Modal>
+									isEditMode={isEditMode}
+									mDiscount={mDiscount}
+									isOpenDetailInputModal={isOpenDetailInputModal}
+									handleCancel={handleCancel}
+								/>
 								<div className="fixed inset-x-0 bottom-0 z-50">
 									<div className="mx-auto flex w-full max-w-[580px] gap-2 bg-gray-100 px-6 pt-1 pb-8">
 										<button
