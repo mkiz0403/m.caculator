@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 	appleWebApp: {
 		capable: true,
 		title: 'SALTBOY',
-		statusBarStyle: 'default',
+		statusBarStyle: 'black-translucent',
 		startupImage: [
 			{
 				url: '/icons/android-launchericon-96-96.png',
@@ -41,6 +41,7 @@ export const metadata: Metadata = {
 			},
 		],
 	},
+	themeColor: '#f3f4f6',
 	description: '앱을 통해 멤버쉽 할인과 카드 할인을 효율적으로 사용하세요',
 	icons: [
 		{ rel: 'icon', url: '/icons/save-192x192.png' },
