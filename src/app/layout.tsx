@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 	appleWebApp: {
 		capable: true,
 		title: 'SALTBOY',
-		statusBarStyle: 'black-translucent',
+		statusBarStyle: 'default',
 		startupImage: [
 			{
 				url: '/icons/android-launchericon-96-96.png',
@@ -102,7 +102,7 @@ export default function RootLayout({
 				{process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
 					<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
 				)}
-				<div className="flex h-full w-full">
+				<div className="flex h-full w-full bg-gray-100">
 					<div className="mx-auto flex h-full w-full max-w-[580px] min-w-[320px] flex-col items-start overflow-hidden bg-gray-100 p-0 text-xs text-black">
 						<Providers>{children}</Providers>
 					</div>
