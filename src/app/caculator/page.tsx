@@ -367,10 +367,10 @@ export default function Receipt() {
 						<div
 							className="receipt-scallop-both receipt-scallop-shadow bg-white px-4 shadow-lg"
 							style={{
-								['--scallop-size' as any]: '28px', // 간격/지름(조금 넓게)
-								['--scallop-radius' as any]: '10px', // 반지름(= size/2 → 덜 뾰족)
-								['--scallop-offset-top' as any]: '-8px', // 위 오프셋 = -size/2
-								['--scallop-offset-bottom' as any]: '-8px', // 아래 오프셋 = -size/2
+								['--scallop-size' as string]: '28px', // 간격/지름(조금 넓게)
+								['--scallop-radius' as string]: '10px', // 반지름(= size/2 → 덜 뾰족)
+								['--scallop-offset-top' as string]: '-8px', // 위 오프셋 = -size/2
+								['--scallop-offset-bottom' as string]: '-8px', // 아래 오프셋 = -size/2
 							}}
 						>
 							<div className="border-b border-dashed border-gray-500 bg-white pt-6 pb-4">
