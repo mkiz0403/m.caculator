@@ -1,9 +1,12 @@
 'use client';
 
+import { CheckCircleFilled } from '@ant-design/icons';
+
 interface InfoMessageProps {
 	type?: 'info' | 'warning' | 'success';
 	title?: string;
 	message: string;
+	secondMessage?: string;
 	className?: string;
 }
 
@@ -11,6 +14,7 @@ export default function InfoMessage({
 	type = 'info',
 	title,
 	message,
+	secondMessage,
 	className = '',
 }: InfoMessageProps) {
 	const getTypeStyles = () => {
@@ -48,16 +52,43 @@ export default function InfoMessage({
 
 	return (
 		<div
-			className={`flex flex-col gap-1 rounded-md border p-2 ${getTypeStyles()} ${className}`}
+			className={`flex gap-1 rounded-md border p-2 ${getTypeStyles()} ${className}`}
 		>
-			{title && (
-				<span className={`text-sm font-medium ${getTitleStyles()}`}>
-					{title}
-				</span>
+			{title ? (
+				<div className="flex gap-1">
+					<div
+						className={`flex items-center gap-1 text-sm font-medium ${getTitleStyles()}`}
+					>
+						<CheckCircleFilled style={{ color: '#1677ff' }} />
+						<strong className="text-blue-500">{title} : </strong>
+					</div>
+					<div
+						className={`flex items-center justify-between text-sm font-medium ${getMessageStyles()}`}
+						dangerouslySetInnerHTML={{ __html: message }}
+					/>
+					{secondMessage && (
+						<div
+							className={`flex items-center justify-between text-sm font-medium ${getMessageStyles()}`}
+							dangerouslySetInnerHTML={{ __html: secondMessage }}
+						/>
+					)}
+				</div>
+			) : (
+				<>
+					<div className="flex w-full flex-col gap-1">
+						<div
+							className={`flex justify-between text-sm font-medium ${getMessageStyles()}`}
+							dangerouslySetInnerHTML={{ __html: message }}
+						/>
+						{secondMessage && (
+							<div
+								className={`flex justify-between gap-2 text-sm font-medium ${getMessageStyles()}`}
+								dangerouslySetInnerHTML={{ __html: secondMessage }}
+							/>
+						)}
+					</div>
+				</>
 			)}
-			<span className={`text-sm font-medium ${getMessageStyles()}`}>
-				{message}
-			</span>
 		</div>
 	);
 }

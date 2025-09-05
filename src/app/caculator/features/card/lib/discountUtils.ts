@@ -7,6 +7,7 @@ export interface DiscountInfo {
 	type: CardDiscountType;
 	title: string;
 	message: string;
+	secondMessage?: string;
 	company: string;
 	card: string;
 }
@@ -30,6 +31,7 @@ export function getCardDiscountInfo(
 					type: discountType,
 					title: `${card.label}`,
 					message: card.message,
+					secondMessage: card.secondMessage,
 					company: company.label,
 					card: card.label,
 				};
@@ -140,7 +142,7 @@ export function getCardInfoMessages(
 					// 변수 준비
 					const variables: Record<string, string | number> = {
 						maxDiscount: totalAmount < 5000 ? 0 : 999 - (totalAmount % 1000),
-						additionalAmount: 5000 - totalAmount,
+						additionalAmount: (5999 - totalAmount).toLocaleString(),
 						expectedDiscount: Math.floor(totalAmount * 0.07),
 						discountAmount: discountAmount,
 					};
@@ -150,6 +152,9 @@ export function getCardInfoMessages(
 						type: msgTemplate.type,
 						title: msgTemplate.title,
 						message: replaceMessageVariables(msgTemplate.message, variables),
+						secondMessage: msgTemplate.secondMessage
+							? replaceMessageVariables(msgTemplate.secondMessage, variables)
+							: undefined,
 					};
 
 					messages.push(processedMessage);

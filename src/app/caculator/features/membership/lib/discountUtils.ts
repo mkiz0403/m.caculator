@@ -161,6 +161,9 @@ export function getMembershipInfoMessages(
 						type: msgTemplate.type,
 						title: msgTemplate.title || undefined,
 						message: replaceMessageVariables(msgTemplate.message, variables),
+						secondMessage: msgTemplate.secondMessage
+							? replaceMessageVariables(msgTemplate.secondMessage, variables)
+							: undefined,
 					};
 
 					messages.push(processedMessage);

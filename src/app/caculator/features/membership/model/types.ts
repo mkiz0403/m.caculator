@@ -4,6 +4,7 @@ export type MembershipInfoMessage = {
 	type: 'info' | 'warning' | 'success';
 	title?: string;
 	message: string;
+	secondMessage?: string;
 	condition?: (amount: number, discountAmount: number) => boolean;
 };
 

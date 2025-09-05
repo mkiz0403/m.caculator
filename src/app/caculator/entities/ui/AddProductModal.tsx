@@ -42,8 +42,9 @@ export default function AddProductModal({
 			open={isOpenDetailInputModal}
 			onCancel={handleCancel}
 			footer={null}
-			width={380}
+			width={400}
 			centered={true}
+			className="custom-select px-2"
 		>
 			<div className="flex flex-col items-start gap-5">
 				<Form

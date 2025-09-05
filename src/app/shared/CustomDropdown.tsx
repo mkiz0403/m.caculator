@@ -39,7 +39,7 @@ export function SingleDropdown({
 
 	return (
 		<Dropdown menu={{ items: menuItems }} trigger={['click']}>
-			<Button className={`custom-select ${width}`} size="large">
+			<Button className={`custom-select ${width}`} size="middle">
 				<div className="flex w-full min-w-0 items-center justify-between">
 					<span className="block min-w-0 truncate">
 						{children || placeholder}
@@ -76,7 +76,7 @@ export function PairDropdown({
 	secondItems,
 	firstPlaceholder,
 	secondPlaceholder,
-	firstWidth = 'w-32',
+	firstWidth = 'w-28',
 	secondWidth = 'w-full',
 	onFirstSelect,
 	onSecondSelect,
@@ -86,8 +86,8 @@ export function PairDropdown({
 	onReset,
 }: PairDropdownProps) {
 	return (
-		<div className="flex w-full max-w-[480px] flex-col items-start gap-2">
-			<div className="flex w-full items-center gap-2">
+		<div className="flex w-full max-w-[340px] flex-col items-start gap-2">
+			<div className="flex w-full items-center gap-1">
 				<div className="min-w-0 flex-shrink-0">
 					<SingleDropdown
 						items={firstItems}
@@ -120,8 +120,8 @@ export function PairDropdown({
 						onClick={onReset}
 						type="primary"
 						ghost={true}
-						size="large"
-						className="custom-select w-10"
+						size="middle"
+						className="custom-select w-6"
 						style={{ background: 'white', border: '1px solid #D9D9D9' }}
 					>
 						<RedoOutlined />

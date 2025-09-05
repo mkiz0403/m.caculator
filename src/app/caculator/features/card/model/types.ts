@@ -4,12 +4,14 @@ export type CardInfoMessage = {
 	type: 'info' | 'warning' | 'success';
 	title?: string;
 	message: string;
+	secondMessage?: string;
 	condition?: (amount: number, discountAmount: number) => boolean;
 };
 
 export type CardDiscountDefault = {
 	label: string;
 	message: string;
+	secondMessage?: string;
 	calc: (amount: number) => number;
 	infoMessages?: CardInfoMessage[];
 };

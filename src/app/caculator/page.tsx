@@ -47,6 +47,7 @@ export default function Receipt() {
 	const [isEditMode, setIsEditMode] = useState(false);
 
 	const [isOpenDetailInputModal, setIsOpenDetailInput] = useState(false);
+	const [resetKey, setResetKey] = useState(0);
 
 	// --- LocalStorage Persist Keys ---
 	const STORAGE = {
@@ -220,11 +221,20 @@ export default function Receipt() {
 		setEditingProduct(null);
 		resetForm();
 
+		// 드롭다운 컴포넌트들 강제 리렌더링
+		setResetKey((prev) => prev + 1);
+
 		// 로컬스토리지 초기화
 		try {
 			localStorage.removeItem(STORAGE.products);
 			localStorage.removeItem(STORAGE.mDiscount);
 			localStorage.removeItem(STORAGE.cardDiscount);
+
+			// 드롭다운 컴포넌트들의 localStorage도 초기화
+			localStorage.removeItem('selectedCardCompany');
+			localStorage.removeItem('selectedCard');
+			localStorage.removeItem('selectedMembershipPartner');
+			localStorage.removeItem('selectedMembership');
 		} catch (e) {
 			console.error('Failed to clear localStorage', e);
 		}
@@ -273,10 +283,6 @@ export default function Receipt() {
 		return getMembershipDiscountAmount(totalAmount, mDiscount);
 	};
 
-	const calculateTheMoaDiscount = (totalAmount: number): number => {
-		return getCardDiscountAmount(totalAmount, cardDiscount);
-	};
-
 	// 더모아 최대 할인 가능 금액 계산 (기존 로직 유지)
 	const calculateMaxTheMoaDiscount = (totalAmount: number): number => {
 		if (totalAmount < 5000) return 0;
@@ -306,8 +312,14 @@ export default function Receipt() {
 						<div className="mt-4 flex w-full justify-start">
 							<div className="flex w-full flex-col items-start gap-2">
 								<span className="pl-2 text-sm font-semibold">할인 선택</span>
-								<CardSelect onCardDiscountChange={setCardDiscount} />
-								<MembershipSelect onMembershipDiscountChange={setMDiscount} />
+								<CardSelect
+									key={`card-${resetKey}`}
+									onCardDiscountChange={setCardDiscount}
+								/>
+								<MembershipSelect
+									key={`membership-${resetKey}`}
+									onMembershipDiscountChange={setMDiscount}
+								/>
 							</div>
 						</div>
 						{/* 영수증 */}
@@ -402,12 +414,11 @@ export default function Receipt() {
 											cardDiscount,
 										);
 
+										// 총 할인 금액 계산 (카드 할인 제외)
 										const totalDiscountAmount =
-											cardDiscountAmount +
-											membershipDiscountAmount +
-											productDiscountAmount;
+											membershipDiscountAmount + productDiscountAmount;
 
-										// 최종 가격
+										// 최종 가격 (멤버쉽 할인 또는 추가 할인이 있을 때만 할인 적용)
 										const finalPrice = Math.max(
 											0,
 											totalPrice - totalDiscountAmount,
@@ -549,7 +560,10 @@ export default function Receipt() {
 											// 더모아 할인 (총결제 금액 기준)
 											const theMoaDiscount =
 												cardDiscount === 'theMoa'
-													? calculateTheMoaDiscount(totalPaymentBeforeTheMoa)
+													? getCardDiscountAmount(
+															totalPaymentBeforeTheMoa,
+															cardDiscount,
+														)
 													: 0;
 
 											// 더모아 최대 할인 가능 금액
@@ -563,7 +577,7 @@ export default function Receipt() {
 
 											return (
 												<>
-													<div>
+													<div className="flex flex-col gap-2">
 														<div className="flex justify-between text-sm">
 															<span className="text-gray-400">
 																상품 총 수량:{' '}
@@ -613,16 +627,30 @@ export default function Receipt() {
 															</span>
 														</div>
 														{/* 더모아 적립 금액 표시 */}
-														{cardDiscount === 'theMoa' && (
+														{/* {cardDiscount === 'theMoa' && (
 															<div className="flex justify-between text-sm">
 																<span className="text-gray-400">
 																	더 모아 적립 금액:
 																</span>
 																<span className="text-[#1677ff]">
-																	(-) {theMoaDiscount.toLocaleString()}원
+																	{theMoaDiscount.toLocaleString()}원
 																</span>
 															</div>
 														)}
+														{cardDiscount === 'HDzero' && (
+															<div className="flex justify-between text-sm">
+																<span className="text-gray-400">
+																	현대 Zero 청구할인 금액:
+																</span>
+																<span className="text-[#1677ff]">
+																	{getCardDiscountAmount(
+																		totalPayment,
+																		cardDiscount,
+																	).toLocaleString()}
+																	원
+																</span>
+															</div>
+														)} */}
 
 														{/* 동적 안내 메시지 */}
 														{(() => {
@@ -638,6 +666,7 @@ export default function Receipt() {
 																	type={msg.type}
 																	title={msg.title}
 																	message={msg.message}
+																	secondMessage={msg.secondMessage}
 																/>
 															));
 														})()}
@@ -670,12 +699,6 @@ export default function Receipt() {
 										>
 											초기화
 										</Button>
-										{/* <button
-											className="w-full rounded-md bg-blue-400 px-6 py-4 text-base text-white"
-											onClick={showDtailModalModal}
-										>
-											상품 추가하기 +
-										</button> */}
 										<Button
 											type="primary"
 											size="large"

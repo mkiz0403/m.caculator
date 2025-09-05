@@ -14,9 +14,10 @@ export const CARD_DISCOUNT_COMPANIES: CardDiscountCatalog = {
 				infoMessages: [
 					{
 						type: 'info',
-						title: '잠깐‼️',
 						message:
-							'뒷자리 {maxDiscount}원 한도내에서 추가 상품 구매를 하면 최대적립을 받을 수 있어요😀',
+							'<span>더 모아로 청구할인 받을 금액</span><strong>{discountAmount}원</strong>',
+						secondMessage:
+							'<span>추가할인 받을 수 있는 금액</span><strong>뒷자리 {maxDiscount}원</strong>',
 						condition: (amount, discountAmount) => {
 							const maxDiscount = amount < 5000 ? 0 : 999 - (amount % 1000);
 							return maxDiscount > 0;
@@ -24,9 +25,9 @@ export const CARD_DISCOUNT_COMPANIES: CardDiscountCatalog = {
 					},
 					{
 						type: 'info',
-						title: '잠깐‼️',
+						title: 'TIP',
 						message:
-							'{additionalAmount}원 추가 구매 시 5,000원의 행복을 누릴 수 있어요 🎉',
+							'{additionalAmount}원 추가 구매 시 5,000원의 행복을 누릴 수 있어요 ',
 						condition: (amount, discountAmount) => {
 							return amount >= 4000 && amount < 5000;
 						},
@@ -46,9 +47,9 @@ export const CARD_DISCOUNT_COMPANIES: CardDiscountCatalog = {
 				},
 				infoMessages: [
 					{
-						type: 'success',
+						type: 'info',
 						message:
-							'현대 Zero 결제 시 {expectedDiscount}원을 청구할인 받을 수 있어요 🎉',
+							'<span>현대 Zero로 청구할인 받을 금액</span><strong>{expectedDiscount}원</strong>',
 					},
 				],
 			},
