@@ -1,5 +1,4 @@
-export type PartnerKey = 'none' | 'SKT';
-export type MembershipKey = 'none' | 'sevenEarth' | 'sevenT';
+export type PartnerKey = 'SKT';
 
 export type MembershipDefault = {
 	label: string;
@@ -9,5 +8,5 @@ export type MembershipDefault = {
 
 export type MembershipCatalog = Record<
 	PartnerKey,
-	{ label: string; memberships: Record<MembershipKey, MembershipDefault> }
+	{ label: string; memberships: Record<string, MembershipDefault> }
 >;
