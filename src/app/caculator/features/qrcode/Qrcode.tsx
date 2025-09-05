@@ -7,19 +7,39 @@ export default function QrSaltboy({
 }: {
 	url?: string;
 }) {
+	const handleShare = async () => {
+		if (navigator.share) {
+			navigator
+				.share({
+					url: 'https://saltboy.store', // 또는 특정 이미지 주소
+				})
+				.then(() => console.log('✅ 공유 성공'))
+				.catch((err) => console.error('❌ 공유 실패', err));
+		} else {
+			await navigator.clipboard.writeText('https://saltboy.store');
+			alert('주소가 복사되었습니다 📋');
+		}
+	};
+
 	return (
-		<div className="flex flex-col items-center justify-center gap-1 bg-white">
-			<QRCode
-				value={url}
-				size={60} // 픽셀 크기
-				level="H" // 오류 보정 (L/M/Q/H)
-				bgColor="#ffffff"
-				fgColor="#000000"
-			/>
+		<div className="flex w-full flex-1 items-center justify-center gap-4 bg-white">
 			<div className="flex items-center justify-center">
-				<Image src="/icons/saltboy2.png" alt="SALTBOY" width={16} height={16} />
-				<p className="text-center text-[10px]">SALTBOY</p>
+				<div className="flex flex-col items-start justify-center text-sm text-black">
+					<span>
+						QR 코드를 <strong> Click </strong>하여 친구에게 공유해보세요
+					</span>
+					<span>카메라로 스캔하면 바로 계산기로 이동해요</span>
+				</div>
 			</div>
+			<button onClick={handleShare}>
+				<QRCode
+					value={url}
+					size={40} // 픽셀 크기
+					level="H" // 오류 보정 (L/M/Q/H)
+					bgColor="#ffffff"
+					fgColor="#000000"
+				/>
+			</button>
 		</div>
 	);
 }

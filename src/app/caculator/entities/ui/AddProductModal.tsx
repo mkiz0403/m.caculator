@@ -42,7 +42,7 @@ export default function AddProductModal({
 			open={isOpenDetailInputModal}
 			onCancel={handleCancel}
 			footer={null}
-			width={420}
+			width={380}
 			centered={true}
 		>
 			<div className="flex flex-col items-start gap-5">

@@ -97,12 +97,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className="h-full">
+		<html lang="en" className="h-full bg-gray-100">
 			<body className="h-full bg-gray-100">
 				{process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
 					<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
 				)}
-				<div className="flex h-full w-full bg-gray-100">
+				<div className="flex h-full w-full">
 					<div className="mx-auto flex h-full w-full max-w-[580px] min-w-[320px] flex-col items-start overflow-hidden bg-gray-100 p-0 text-xs text-black">
 						<Providers>{children}</Providers>
 					</div>
