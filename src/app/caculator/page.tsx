@@ -6,6 +6,7 @@ import { Button, Dropdown, Modal, Space, message } from 'antd';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import AddProductModal from './entities/ui/AddProductModal';
+import Qrcode from './features/qrcode/Qrcode';
 interface Product {
 	id: string;
 	name?: string;
@@ -327,7 +328,7 @@ export default function Receipt() {
 							</span>
 						</div>
 					</div>
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col gap-8">
 						<div className="mt-4 flex justify-end">
 							<div className="flex items-center gap-4">
 								<div className="flex items-center gap-2">
@@ -361,10 +362,17 @@ export default function Receipt() {
 									</Dropdown>
 								</div>
 							</div>
-							<div className="flex items-center gap-2"></div>
 						</div>
 						{/* 영수증 */}
-						<div className="bg-white px-4 shadow-md">
+						<div
+							className="receipt-scallop-both receipt-scallop-shadow bg-white px-4 shadow-lg"
+							style={{
+								['--scallop-size' as any]: '28px', // 간격/지름(조금 넓게)
+								['--scallop-radius' as any]: '10px', // 반지름(= size/2 → 덜 뾰족)
+								['--scallop-offset-top' as any]: '-8px', // 위 오프셋 = -size/2
+								['--scallop-offset-bottom' as any]: '-8px', // 아래 오프셋 = -size/2
+							}}
+						>
 							<div className="border-b border-dashed border-gray-500 bg-white pt-6 pb-4">
 								<div className="mb-2 flex items-start justify-between">
 									<span className="text-sm font-bold">적용된 할인</span>
@@ -707,6 +715,9 @@ export default function Receipt() {
 												</>
 											);
 										})()}
+									</div>
+									<div className="flex justify-end pt-4">
+										<Qrcode />
 									</div>
 								</div>
 								<AddProductModal

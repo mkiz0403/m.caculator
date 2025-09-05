@@ -41,3 +41,112 @@ body {
 	background: rgba(0, 0, 0, 0.1); /* 반투명 */
 	border-radius: 9999px; /* 동그랗게 */
 }
+
+@layer utilities {
+	.mask-receipt {
+		/* paper color는 요소 배경에서 제어 */
+		/* WebKit & Standard mask for scalloped bottom edge */
+		-webkit-mask-image: radial-gradient(
+			circle 10px at 10px 10px,
+			transparent 98%,
+			black 100%
+		);
+		mask-image: radial-gradient(
+			circle 10px at 10px 10px,
+			transparent 98%,
+			black 100%
+		);
+		-webkit-mask-repeat: repeat-x;
+		mask-repeat: repeat-x;
+		/* 위치는 좌하단 기준으로 고정 */
+		-webkit-mask-position: bottom left;
+		mask-position: bottom left;
+		/* 크기를 커스텀할 수 있도록 CSS 변수 사용 */
+		-webkit-mask-size: var(--scallop-size, 20px) var(--scallop-size, 20px);
+		mask-size: var(--scallop-size, 20px) var(--scallop-size, 20px);
+	}
+
+	/* Alternative: pseudo-element scallop that protrudes beneath the element (broad browser support) */
+	.receipt-scallop {
+		position: relative;
+		background: #fff;
+	}
+
+	/* Utility scope default CSS variables for scallop sizing */
+	:where(.receipt-scallop-both) {
+		--scallop-size: 24px;
+		--scallop-radius: calc(var(--scallop-size, 24px) / 2);
+	}
+
+	.receipt-scallop::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		/* scallop 높이는 size의 1x, 요소 아래로 반쯤 나오게 */
+		bottom: calc(var(--scallop-offset, -10px));
+		height: calc(var(--scallop-size, 20px));
+		background-image: radial-gradient(
+			circle at 10px 10px,
+			transparent 10px,
+			#fff 10px
+		);
+		background-repeat: repeat-x;
+		background-size: var(--scallop-size, 20px) var(--scallop-size, 20px);
+		background-position: left bottom;
+		pointer-events: none;
+	}
+
+	/* 그림자 유틸 */
+	/* .receipt-scallop-shadow::after {
+		filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12));
+	} */
+	/* 상·하단 동시에 적용되는 톱니 */
+	.receipt-scallop-both {
+		position: relative;
+		background: #fff;
+		overflow: visible; /* 톱니가 요소 밖으로 자연스럽게 나오도록 */
+	}
+
+	.receipt-scallop-both::before,
+	.receipt-scallop-both::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+
+		/* 🔧 핵심: 높이를 절반으로 → 내부(빨간/파란) 줄무늬가 사라짐 */
+		height: calc(var(--scallop-size, 20px) / 2);
+
+		/* use variable-driven radius/size for smoother round scallops */
+		background-image: radial-gradient(
+			circle at var(--scallop-radius, calc(var(--scallop-size, 24px) / 2))
+				var(--scallop-radius, calc(var(--scallop-size, 24px) / 2)),
+			transparent var(--scallop-radius, calc(var(--scallop-size, 24px) / 2)),
+			#fff var(--scallop-radius, calc(var(--scallop-size, 24px) / 2))
+		);
+		background-repeat: repeat-x;
+		background-size: var(--scallop-size, 24px) var(--scallop-size, 24px);
+		pointer-events: none;
+	}
+
+	/* TOP scallop — 아래쪽과 같은 geometry/orientation 사용 */
+	.receipt-scallop-both::before {
+		top: var(--scallop-offset-top, calc(var(--scallop-size, 24px) / -2));
+		transform: scaleY(1);
+		background-position: left bottom; /* bottom과 동일한 배경 기준 사용 */
+	}
+
+	/* BOTTOM scallop — 대칭을 위해 동일하게 플립 */
+	.receipt-scallop-both::after {
+		bottom: var(--scallop-offset-bottom, calc(var(--scallop-size, 24px) / -2));
+		transform: scaleY(-1); /* 아래쪽도 동일하게 뒤집기 */
+		background-position: left bottom;
+	}
+
+	/* 그림자 유틸 유지 (선택) */
+	/* .receipt-scallop-shadow::before,
+	.receipt-scallop-shadow::after {
+		filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.1));
+	} */
+}
