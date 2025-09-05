@@ -39,7 +39,11 @@ export function SingleDropdown({
 
 	return (
 		<Dropdown menu={{ items: menuItems }} trigger={['click']}>
-			<Button className={`custom-select ${width}`} size="middle">
+			<Button
+				className={`custom-select ${width}`}
+				size="middle"
+				style={{ height: '36px' }}
+			>
 				<div className="flex w-full min-w-0 items-center justify-between">
 					<span className="block min-w-0 truncate">
 						{children || placeholder}

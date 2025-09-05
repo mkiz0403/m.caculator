@@ -52,7 +52,7 @@ export default function InfoMessage({
 
 	return (
 		<div
-			className={`flex gap-1 rounded-md border p-2 ${getTypeStyles()} ${className}`}
+			className={`mt-2 mb-2 flex gap-1 rounded-md border p-2 ${getTypeStyles()} ${className}`}
 		>
 			{title ? (
 				<div className="flex gap-1">
