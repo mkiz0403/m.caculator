@@ -22,11 +22,6 @@ interface AddProductProps {
 	handleCancel: () => void;
 }
 
-interface AddProductTextType {
-	type?: 'info' | 'warning' | 'success';
-	message: string;
-}
-
 export default function AddProductModal({
 	formData,
 	setFormData,
@@ -36,7 +31,6 @@ export default function AddProductModal({
 	mDiscount,
 	isOpenDetailInputModal,
 	handleCancel,
-	type,
 }: AddProductProps) {
 	const handleSubmit = () => {
 		onSubmit();
