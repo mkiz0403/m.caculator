@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 	appleWebApp: {
 		capable: true,
 		title: 'SALTBOY',
-		statusBarStyle: 'default',
+		statusBarStyle: 'black-translucent',
 		startupImage: [
 			{
 				url: '/icons/android-launchericon-96-96.png',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
 	other: {
 		'mobile-web-app-capable': 'yes',
 		'apple-mobile-web-app-capable': 'yes',
-		'apple-mobile-web-app-status-bar-style': 'default',
+		'apple-mobile-web-app-status-bar-style': 'black-translucent',
 		'apple-mobile-web-app-title': 'SALTBOY',
 		'google-site-verification': 'kfhTAwt898PHjLHAtEM00_iiGfO96HSV3vXAtQblB7M',
 		'naver-site-verification': 'eb04d1e2f6bacb35aed2e101935974f302d390fd',
