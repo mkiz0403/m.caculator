@@ -24,7 +24,7 @@ export default function QrSaltboy({
 	return (
 		<div className="flex w-full flex-1 items-center justify-center gap-4 bg-white">
 			<div className="flex items-center justify-center">
-				<div className="flex flex-col items-start justify-center text-sm text-black">
+				<div className="flex flex-col items-start justify-center text-[13px] text-black">
 					<span>
 						QR 코드를 <strong> Click </strong>하여 친구에게 공유해보세요
 					</span>
