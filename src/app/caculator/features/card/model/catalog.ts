@@ -27,7 +27,7 @@ export const CARD_DISCOUNT_COMPANIES: CardDiscountCatalog = {
 						type: 'info',
 						title: 'TIP',
 						message:
-							'{additionalAmount}원 추가 구매 시 5,000원의 행복을 누릴 수 있어요 ',
+							'{additionalAmount}원 추가 구매 시 5천원의 행복을 누릴 수 있어요 ',
 						condition: (amount, discountAmount) => {
 							return amount >= 4000 && amount < 5000;
 						},
