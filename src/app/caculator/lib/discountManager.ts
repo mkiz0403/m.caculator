@@ -61,7 +61,7 @@ export function getAllAppliedDiscounts(
  * 할인 정보를 사용자 친화적인 메시지로 변환
  */
 export function formatDiscountMessage(discount: AppliedDiscount): string {
-	return `${discount.title} (${discount.message})`;
+	return `${discount.title} ${discount.message}`;
 }
 
 /**
