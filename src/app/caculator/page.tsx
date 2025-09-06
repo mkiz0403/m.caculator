@@ -310,9 +310,9 @@ export default function Receipt() {
 	};
 
 	return (
-		<div className="flex h-screen w-full flex-col bg-gray-100">
+		<div className="flex h-full w-full flex-col bg-gray-100">
 			{/* 상단로고, 타이틀, 서브타이틀 */}
-			<div className="flex h-23 items-start justify-center">
+			<div className="mt-2 flex h-23 items-start justify-center">
 				<Image
 					src="/icons/saltboy2.png"
 					alt="짠돌이"
@@ -327,7 +327,7 @@ export default function Receipt() {
 				</div>
 			</div>
 			{/* <div className="w-full overflow-y-auto"> */}
-			<div className="flex flex-col gap-6 self-stretch overflow-y-auto px-3 pb-4">
+			<div className="flex flex-1 flex-col gap-6 overflow-y-auto px-3 pb-4">
 				<div className="mt-4 flex w-full justify-start">
 					<div className="flex w-full flex-col items-start gap-2">
 						<span className="pl-2 text-sm font-semibold">할인 선택</span>

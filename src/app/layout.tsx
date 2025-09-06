@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 	appleWebApp: {
 		capable: true,
 		title: 'SALTBOY',
-		statusBarStyle: 'black-translucent',
+		statusBarStyle: 'default',
 		startupImage: [
 			{
 				url: '/icons/android-launchericon-96-96.png',
