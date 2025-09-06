@@ -1,6 +1,6 @@
 'use client';
 
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Modal, message } from 'antd';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -120,7 +120,7 @@ export default function Receipt() {
 
 		const newProduct: Product = {
 			id: Date.now().toString(),
-			name: formData.name || '이름없음',
+			name: formData.name || ' ',
 			price: price,
 			quantity: quantity,
 			discountValue: discountValue,
@@ -190,7 +190,14 @@ export default function Receipt() {
 			content: '이 상품을 삭제하시겠습니까?',
 			okText: '삭제',
 			cancelText: '취소',
-			okButtonProps: { danger: true },
+			okButtonProps: {
+				danger: true,
+				style: {
+					backgroundColor: '#FF5555',
+					borderColor: '#FF5555',
+					color: 'white',
+				},
+			},
 			centered: true,
 			onOk() {
 				setProducts(products.filter((p) => p.id !== productId));
@@ -244,10 +251,22 @@ export default function Receipt() {
 	const confirmResetAll = () => {
 		Modal.confirm({
 			title: '전체 초기화',
-			content: `모든 상품과 선택한 할인 설정을 초기화합니다. \n 모든 설정을 초기화 하시겠습니까? `,
+			content: (
+				<div className="flex flex-col gap-0.5">
+					<span>모든 상품과 선택한 할인 설정을 초기화합니다.</span>
+					<span>설정을 초기화 하시겠습니까?</span>
+				</div>
+			),
 			okText: '초기화',
 			cancelText: '취소',
-			okButtonProps: { danger: true },
+			okButtonProps: {
+				danger: true,
+				style: {
+					backgroundColor: '#FF5555',
+					borderColor: '#FF5555',
+					color: 'white',
+				},
+			},
 			centered: true,
 			onOk() {
 				clearAllState();
@@ -291,343 +310,324 @@ export default function Receipt() {
 	};
 
 	return (
-		<div className="w-full overflow-y-auto bg-gray-100 pt-4 pb-24">
-			<div className="min-h-full w-full rounded-md p-4">
-				<div className="flex flex-col gap-2">
-					<div className="flex items-center justify-center">
-						<Image
-							src="/icons/saltboy2.png"
-							alt="짠돌이"
-							width={100}
-							height={100}
+		<div className="flex h-screen w-full flex-col bg-gray-100">
+			{/* 상단로고, 타이틀, 서브타이틀 */}
+			<div className="flex h-23 items-start justify-center">
+				<Image
+					src="/icons/saltboy2.png"
+					alt="짠돌이"
+					width={100}
+					height={100}
+				/>
+				<div className="flex flex-col justify-center gap-1 self-stretch pr-8">
+					<h1 className="text-4xl font-bold">SALTBOY</h1>
+					<span className="flex items-start pl-0.5 text-xs text-gray-500">
+						효율적인 소비생활을 추구해요
+					</span>
+				</div>
+			</div>
+			{/* <div className="w-full overflow-y-auto"> */}
+			<div className="flex flex-col gap-6 self-stretch overflow-y-auto px-3 pb-4">
+				<div className="mt-4 flex w-full justify-start">
+					<div className="flex w-full flex-col items-start gap-2">
+						<span className="pl-2 text-sm font-semibold">할인 선택</span>
+						<CardSelect
+							key={`card-${resetKey}`}
+							onCardDiscountChange={setCardDiscount}
 						/>
-						<div className="flex flex-col gap-1 pr-8">
-							<h1 className="text-4xl font-bold">SALTBOY</h1>
-							<span className="flex items-start pl-0.5 text-xs text-gray-500">
-								효율적인 소비생활을 추구해요
-							</span>
-						</div>
+						<MembershipSelect
+							key={`membership-${resetKey}`}
+							onMembershipDiscountChange={setMDiscount}
+						/>
 					</div>
-					<div className="flex flex-col gap-8">
-						<div className="mt-4 flex w-full justify-start">
-							<div className="flex w-full flex-col items-start gap-2">
-								<span className="pl-2 text-sm font-semibold">할인 선택</span>
-								<CardSelect
-									key={`card-${resetKey}`}
-									onCardDiscountChange={setCardDiscount}
-								/>
-								<MembershipSelect
-									key={`membership-${resetKey}`}
-									onMembershipDiscountChange={setMDiscount}
-								/>
-							</div>
+				</div>
+				{/* 영수증 */}
+				<div
+					className="receipt-scallop-both receipt-scallop-shadow bg-white px-4 shadow-lg"
+					style={{
+						['--scallop-size' as string]: '28px', // 간격/지름(조금 넓게)
+						['--scallop-radius' as string]: '10px', // 반지름(= size/2 → 덜 뾰족)
+						['--scallop-offset-top' as string]: '-8px', // 위 오프셋 = -size/2
+						['--scallop-offset-bottom' as string]: '-8px', // 아래 오프셋 = -size/2
+					}}
+				>
+					<div className="border-b border-dashed border-gray-400 bg-white pt-6 pb-4">
+						<div className="mb-2 flex items-start justify-between">
+							<span className="text-sm font-bold">적용된 할인</span>
 						</div>
-						{/* 영수증 */}
-						<div
-							className="receipt-scallop-both receipt-scallop-shadow bg-white px-4 shadow-lg"
-							style={{
-								['--scallop-size' as string]: '28px', // 간격/지름(조금 넓게)
-								['--scallop-radius' as string]: '10px', // 반지름(= size/2 → 덜 뾰족)
-								['--scallop-offset-top' as string]: '-8px', // 위 오프셋 = -size/2
-								['--scallop-offset-bottom' as string]: '-8px', // 아래 오프셋 = -size/2
-							}}
-						>
-							<div className="border-b border-dashed border-gray-500 bg-white pt-6 pb-4">
-								<div className="mb-2 flex items-start justify-between">
-									<span className="text-sm font-bold">적용된 할인</span>
-								</div>
-								{(() => {
-									const appliedDiscounts = getAllAppliedDiscounts(
-										cardDiscount,
-										mDiscount,
-									);
+						{(() => {
+							const appliedDiscounts = getAllAppliedDiscounts(
+								cardDiscount,
+								mDiscount,
+							);
 
-									return hasAnyDiscount(cardDiscount, mDiscount) ? (
-										<div className="flex flex-col gap-1 text-sm text-blue-500">
-											{appliedDiscounts.map((discount) => (
-												<span key={discount.id}>
-													- {formatDiscountMessage(discount)}
-												</span>
-											))}
-										</div>
-									) : (
-										<span className="text-sm text-gray-500">
-											적용중인 할인이 없어요 🥲
+							return hasAnyDiscount(cardDiscount, mDiscount) ? (
+								<div className="flex flex-col gap-1 text-sm text-blue-500">
+									{appliedDiscounts.map((discount) => (
+										<span key={discount.id}>
+											- {formatDiscountMessage(discount)}
 										</span>
-									);
-								})()}
-							</div>
-							<table
-								className="w-full border-separate border-none border-blue-500 py-2 text-xs"
-								style={{ borderSpacing: '0 12px' }}
-							>
-								<thead className="sticky top-0 z-10 bg-white">
-									<tr className="border-b border-dashed border-gray-500">
-										<th className="border-none text-left font-bold">상품명</th>
-										<th className="w-1/7 border-none text-center font-bold">
-											단가
-										</th>
-										<th className="border-non w-1/8 text-center font-bold">
-											수량
-										</th>
-										<th className="w-1/7 border-none text-center font-bold">
-											할인
-										</th>
-										<th className="w-1/7 border-none text-center font-bold">
-											금액
-										</th>
-										<th className="border-nonetext-center w-1/4 font-bold">
-											수정 / 삭제
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									{products.map((product) => {
-										const totalPrice = product.price * product.quantity;
+									))}
+								</div>
+							) : (
+								<span className="text-sm text-gray-500">
+									적용 중인 할인이 없어요 🥲
+								</span>
+							);
+						})()}
+					</div>
+					<table
+						className="w-full border-separate border-none border-blue-500 py-2 text-xs"
+						style={{ borderSpacing: '0 12px' }}
+					>
+						<thead className="sticky top-0 z-10 bg-white">
+							<tr className="border-b border-dashed border-gray-400">
+								<th className="border-none text-left font-bold">상품명</th>
+								<th className="w-1/7 border-none text-center font-bold">
+									단가
+								</th>
+								<th className="border-non w-1/8 text-center font-bold">수량</th>
+								<th className="w-1/7 border-none text-center font-bold">
+									할인
+								</th>
+								<th className="w-1/7 border-none text-center font-bold">
+									금액
+								</th>
+								<th className="border-nonetext-center w-[90px] font-bold">
+									수정 / 삭제
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{products.map((product) => {
+								const totalPrice = product.price * product.quantity;
 
-										// 상품별 할인 금액 (할인제외품목이 아닌 경우만)
-										const productDiscountAmount = !product.isDiscount
-											? calculateProductDiscount(
-													product.price,
-													product.quantity,
-													product.discountType,
-													product.discountValue,
+								// 상품별 할인 금액 (할인제외품목이 아닌 경우만)
+								const productDiscountAmount = !product.isDiscount
+									? calculateProductDiscount(
+											product.price,
+											product.quantity,
+											product.discountType,
+											product.discountValue,
+										)
+									: 0;
+
+								// 멤버쉽 할인 금액
+								// ✅ 멤버쉽 할인 적용 조건:
+								// 1. 할인 제외 품목이 아님 (!product.isDiscount)
+								// 2. 멤버쉽이 선택됨 (mDiscount !== 'none')
+								// 3. 추가 할인이 없음 (product.discountValue === 0)
+								const membershipDiscountAmount =
+									!product.isDiscount &&
+									mDiscount !== 'none' &&
+									product.discountValue === 0
+										? calculateMembershipDiscount(totalPrice)
+										: 0;
+
+								// 총 할인 금액 계산
+								// 카드 할인은 항상 적용, 멤버쉽 할인은 추가할인이 없을 때만 적용
+								const cardDiscountAmount = getCardDiscountAmount(
+									totalPrice,
+									cardDiscount,
+								);
+
+								// 총 할인 금액 계산 (카드 할인 제외)
+								const totalDiscountAmount =
+									membershipDiscountAmount + productDiscountAmount;
+
+								// 최종 가격 (멤버쉽 할인 또는 추가 할인이 있을 때만 할인 적용)
+								const finalPrice = Math.max(
+									0,
+									totalPrice - totalDiscountAmount,
+								);
+
+								return (
+									<tr key={product.id} className="text-xs">
+										<td className="border-none text-left font-bold">
+											{product.name || '상품'}
+										</td>
+										<td className="border-none text-center">
+											{product.price.toLocaleString()}
+										</td>
+										<td className="border-none text-center">
+											{product.quantity}
+										</td>
+										<td className="border-none text-center">
+											<div className="flex flex-col gap-1">
+												{/* 상품별 할인 (추가 할인) - 할인제외품목이 아닌 경우만 */}
+												{product.discountValue > 0 && !product.isDiscount && (
+													<span className="text-xs">
+														{product.discountType === '원'
+															? `${product.discountValue.toLocaleString()}`
+															: `${productDiscountAmount.toLocaleString()}`}
+													</span>
+												)}
+
+												{/* 멤버쉽 할인 (할인 제외 품목이 아니고 추가 할인이 0인 경우만) */}
+												{!product.isDiscount &&
+													mDiscount !== 'none' &&
+													product.discountValue === 0 &&
+													membershipDiscountAmount > 0 && (
+														<span className="text-xs text-black">
+															{membershipDiscountAmount.toLocaleString()}
+														</span>
+													)}
+											</div>
+										</td>
+										<td className="border-none text-center">
+											{finalPrice.toLocaleString()}
+										</td>
+										<td className="border-none text-center">
+											<div className="flex justify-center gap-1">
+												<button
+													onClick={() => handleEditProduct(product)}
+													className="rounded-sm border border-[#BEBEBE] px-2 py-1 text-center text-gray-900"
+												>
+													수정
+												</button>
+												<button
+													onClick={() => handleDeleteProduct(product.id)}
+													className="rounded-sm border border-[#ff5555] px-2 py-1 text-center text-[#ff5555]"
+												>
+													삭제
+												</button>
+											</div>
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
+					<>
+						<div className="border-t border-dashed border-gray-400 py-4">
+							<div className="flex flex-col gap-2 border-b border-dashed border-gray-400 pb-4">
+								{(() => {
+									// 할인 적용 상품 (할인 제외 품목이 아닌 상품)
+									const excludedProducts = products.filter(
+										(p) => !p.isDiscount,
+									);
+									const excludedTotal = excludedProducts.reduce(
+										(sum, p) => sum + p.price * p.quantity,
+										0,
+									);
+
+									// 할인 제외 상품 (할인 제외 품목으로 체크된 상품)
+									const includedProducts = products.filter((p) => p.isDiscount);
+									const includedTotal = includedProducts.reduce(
+										(sum, p) => sum + p.price * p.quantity,
+										0,
+									);
+
+									// 상품별 할인 총액 (할인제외품목이 아닌 경우만)
+									const productDiscountTotal = products.reduce((sum, p) => {
+										if (p.discountValue > 0 && !p.isDiscount) {
+											return (
+												sum +
+												calculateProductDiscount(
+													p.price,
+													p.quantity,
+													p.discountType,
+													p.discountValue,
+												)
+											);
+										}
+										return sum;
+									}, 0);
+
+									// 멤버쉽 할인 총액
+									// ✅ 멤버쉽 할인 적용 조건:
+									// 1. 할인 제외 품목이 아님 (!product.isDiscount)
+									// 2. 멤버쉽이 선택됨 (mDiscount !== 'none')
+									// 3. 추가 할인이 없음 (product.discountValue === 0)
+									const membershipDiscountTotal =
+										excludedProducts.length > 0 && mDiscount !== 'none'
+											? excludedProducts.reduce((sum, product) => {
+													// 🚫 멤버쉽 할인 제외 조건:
+													// 1. 할인 제외 품목 (product.isDiscount = true)
+													// 2. 추가 할인이 적용된 상품 (product.discountValue > 0)
+													if (product.isDiscount || product.discountValue > 0) {
+														return sum; // 멤버쉽 할인 제외
+													}
+
+													// ✅ 멤버쉽 할인 적용 조건:
+													// - 할인 제외 품목이 아님 (product.isDiscount = false)
+													// - 추가 할인이 없음 (product.discountValue = 0)
+													return (
+														sum +
+														calculateMembershipDiscount(
+															product.price * product.quantity,
+														)
+													);
+												}, 0)
+											: 0;
+
+									// 총 결제 금액 (더모아 할인 제외)
+									const totalPaymentBeforeTheMoa =
+										includedTotal +
+										excludedTotal -
+										productDiscountTotal -
+										membershipDiscountTotal;
+
+									// 더모아 할인 (총결제 금액 기준)
+									const theMoaDiscount =
+										cardDiscount === 'theMoa'
+											? getCardDiscountAmount(
+													totalPaymentBeforeTheMoa,
+													cardDiscount,
 												)
 											: 0;
 
-										// 멤버쉽 할인 금액
-										// ✅ 멤버쉽 할인 적용 조건:
-										// 1. 할인 제외 품목이 아님 (!product.isDiscount)
-										// 2. 멤버쉽이 선택됨 (mDiscount !== 'none')
-										// 3. 추가 할인이 없음 (product.discountValue === 0)
-										const membershipDiscountAmount =
-											!product.isDiscount &&
-											mDiscount !== 'none' &&
-											product.discountValue === 0
-												? calculateMembershipDiscount(totalPrice)
-												: 0;
+									// 더모아 최대 할인 가능 금액
+									const maxTheMoaDiscount =
+										cardDiscount === 'theMoa'
+											? calculateMaxTheMoaDiscount(totalPaymentBeforeTheMoa)
+											: 0;
 
-										// 총 할인 금액 계산
-										// 카드 할인은 항상 적용, 멤버쉽 할인은 추가할인이 없을 때만 적용
-										const cardDiscountAmount = getCardDiscountAmount(
-											totalPrice,
-											cardDiscount,
-										);
+									const noneDiscountTotalPayment =
+										includedTotal + excludedTotal;
+									// 최종 총 결제 금액
+									const totalPayment = totalPaymentBeforeTheMoa;
 
-										// 총 할인 금액 계산 (카드 할인 제외)
-										const totalDiscountAmount =
-											membershipDiscountAmount + productDiscountAmount;
+									return (
+										<>
+											<div className="flex flex-col gap-2">
+												<div className="flex justify-between text-sm">
+													<span className="text-gray-400">상품 총 수량: </span>
+													<span>
+														{products.reduce((sum, p) => sum + p.quantity, 0)}개
+													</span>
+												</div>
+												<div className="flex justify-between text-sm">
+													<span className="text-gray-400">할인 전 총액: </span>
+													<span>
+														{noneDiscountTotalPayment.toLocaleString()}원
+													</span>
+												</div>
 
-										// 최종 가격 (멤버쉽 할인 또는 추가 할인이 있을 때만 할인 적용)
-										const finalPrice = Math.max(
-											0,
-											totalPrice - totalDiscountAmount,
-										);
-
-										return (
-											<tr key={product.id} className="text-xs">
-												<td className="border-none text-left font-bold">
-													{product.name || '상품'}
-												</td>
-												<td className="border-none text-center">
-													{product.price.toLocaleString()}
-												</td>
-												<td className="border-none text-center">
-													{product.quantity}
-												</td>
-												<td className="border-none text-center">
-													<div className="flex flex-col gap-1">
-														{/* 상품별 할인 (추가 할인) - 할인제외품목이 아닌 경우만 */}
-														{product.discountValue > 0 &&
-															!product.isDiscount && (
-																<span className="text-xs">
-																	{product.discountType === '원'
-																		? `${product.discountValue.toLocaleString()}`
-																		: `${productDiscountAmount.toLocaleString()}`}
-																</span>
-															)}
-
-														{/* 멤버쉽 할인 (할인 제외 품목이 아니고 추가 할인이 0인 경우만) */}
-														{!product.isDiscount &&
-															mDiscount !== 'none' &&
-															product.discountValue === 0 &&
-															membershipDiscountAmount > 0 && (
-																<span className="text-xs text-black">
-																	{membershipDiscountAmount.toLocaleString()}
-																</span>
-															)}
-													</div>
-												</td>
-												<td className="border-none text-center">
-													{finalPrice.toLocaleString()}
-												</td>
-												<td className="border-none text-center">
-													<div className="flex justify-center gap-1">
-														<button
-															onClick={() => handleEditProduct(product)}
-															className="rounded-sm border border-[#BEBEBE] px-2 py-1 text-center text-gray-900"
-														>
-															수정
-														</button>
-														<button
-															onClick={() => handleDeleteProduct(product.id)}
-															className="rounded-sm border border-[#ff5555] px-2 py-1 text-center text-[#ff5555]"
-														>
-															삭제
-														</button>
-													</div>
-												</td>
-											</tr>
-										);
-									})}
-								</tbody>
-							</table>
-							<>
-								<div className="border-t border-dashed border-gray-500 py-4">
-									<div className="flex flex-col gap-2 border-b border-dashed border-gray-500 pb-4">
-										{(() => {
-											// 할인 적용 상품 (할인 제외 품목이 아닌 상품)
-											const excludedProducts = products.filter(
-												(p) => !p.isDiscount,
-											);
-											const excludedTotal = excludedProducts.reduce(
-												(sum, p) => sum + p.price * p.quantity,
-												0,
-											);
-
-											// 할인 제외 상품 (할인 제외 품목으로 체크된 상품)
-											const includedProducts = products.filter(
-												(p) => p.isDiscount,
-											);
-											const includedTotal = includedProducts.reduce(
-												(sum, p) => sum + p.price * p.quantity,
-												0,
-											);
-
-											// 상품별 할인 총액 (할인제외품목이 아닌 경우만)
-											const productDiscountTotal = products.reduce((sum, p) => {
-												if (p.discountValue > 0 && !p.isDiscount) {
-													return (
-														sum +
-														calculateProductDiscount(
-															p.price,
-															p.quantity,
-															p.discountType,
-															p.discountValue,
-														)
-													);
-												}
-												return sum;
-											}, 0);
-
-											// 멤버쉽 할인 총액
-											// ✅ 멤버쉽 할인 적용 조건:
-											// 1. 할인 제외 품목이 아님 (!product.isDiscount)
-											// 2. 멤버쉽이 선택됨 (mDiscount !== 'none')
-											// 3. 추가 할인이 없음 (product.discountValue === 0)
-											const membershipDiscountTotal =
-												excludedProducts.length > 0 && mDiscount !== 'none'
-													? excludedProducts.reduce((sum, product) => {
-															// 🚫 멤버쉽 할인 제외 조건:
-															// 1. 할인 제외 품목 (product.isDiscount = true)
-															// 2. 추가 할인이 적용된 상품 (product.discountValue > 0)
-															if (
-																product.isDiscount ||
-																product.discountValue > 0
-															) {
-																return sum; // 멤버쉽 할인 제외
-															}
-
-															// ✅ 멤버쉽 할인 적용 조건:
-															// - 할인 제외 품목이 아님 (product.isDiscount = false)
-															// - 추가 할인이 없음 (product.discountValue = 0)
-															return (
-																sum +
-																calculateMembershipDiscount(
-																	product.price * product.quantity,
-																)
-															);
-														}, 0)
-													: 0;
-
-											// 총 결제 금액 (더모아 할인 제외)
-											const totalPaymentBeforeTheMoa =
-												includedTotal +
-												excludedTotal -
-												productDiscountTotal -
-												membershipDiscountTotal;
-
-											// 더모아 할인 (총결제 금액 기준)
-											const theMoaDiscount =
-												cardDiscount === 'theMoa'
-													? getCardDiscountAmount(
-															totalPaymentBeforeTheMoa,
-															cardDiscount,
-														)
-													: 0;
-
-											// 더모아 최대 할인 가능 금액
-											const maxTheMoaDiscount =
-												cardDiscount === 'theMoa'
-													? calculateMaxTheMoaDiscount(totalPaymentBeforeTheMoa)
-													: 0;
-
-											// 최종 총 결제 금액
-											const totalPayment = totalPaymentBeforeTheMoa;
-
-											return (
-												<>
-													<div className="flex flex-col gap-2">
-														<div className="flex justify-between text-sm">
-															<span className="text-gray-400">
-																상품 총 수량:{' '}
-															</span>
-															<span>
-																{products.reduce(
-																	(sum, p) => sum + p.quantity,
-																	0,
-																)}
-																개
-															</span>
-														</div>
-														<div className="flex justify-between text-sm">
-															<span className="text-gray-400">
-																할인 제외 상품 총액:{' '}
-															</span>
-															<span>{excludedTotal.toLocaleString()}원</span>
-														</div>
-														<div className="flex justify-between text-sm">
-															<span className="text-gray-400">
-																할인 적용 상품 총액:{' '}
-															</span>
-															<span>{includedTotal.toLocaleString()}원</span>
-														</div>
-														<div className="flex justify-between text-sm">
-															<span className="text-gray-400">
-																할인 적용 금액 (일반):{' '}
-															</span>
-															<span className="text-gray-900">
-																(-) {productDiscountTotal.toLocaleString()}원
-															</span>
-														</div>
-														<div className="flex justify-between text-sm">
-															<span className="text-gray-400">
-																할인 적용 금액 (멤버쉽):{' '}
-															</span>
-															<span className="text-blue-500">
-																(-) {membershipDiscountTotal.toLocaleString()}원
-															</span>
-														</div>
-														<div className="flex justify-between text-lg text-blue-500">
-															<span className="text-gray-900">
-																총 결제 금액:{' '}
-															</span>
-															<span className="text-red-400">
-																{totalPayment.toLocaleString()}원
-															</span>
-														</div>
-														{/* 더모아 적립 금액 표시 */}
-														{/* {cardDiscount === 'theMoa' && (
+												<div className="flex justify-between text-sm">
+													<span className="text-gray-400">
+														할인 적용 금액 (일반):{' '}
+													</span>
+													<span className="text-blue-500">
+														(-) {productDiscountTotal.toLocaleString()}원
+													</span>
+												</div>
+												<div className="flex justify-between text-sm">
+													<span className="text-gray-400">
+														할인 적용 금액 (멤버쉽):{' '}
+													</span>
+													<span className="text-blue-500">
+														(-) {membershipDiscountTotal.toLocaleString()}원
+													</span>
+												</div>
+												<div className="flex justify-between text-lg text-blue-500">
+													<span className="text-gray-900">총 결제 금액: </span>
+													<span className="font-semibold text-gray-900">
+														{totalPayment.toLocaleString()}원
+													</span>
+												</div>
+												{/* 더모아 적립 금액 표시 */}
+												{/* {cardDiscount === 'theMoa' && (
 															<div className="flex justify-between text-sm">
 																<span className="text-gray-400">
 																	더 모아 적립 금액:
@@ -652,69 +652,82 @@ export default function Receipt() {
 															</div>
 														)} */}
 
-														{/* 동적 안내 메시지 */}
-														{(() => {
-															const infoMessages = getAllInfoMessages(
-																totalPayment,
-																cardDiscount,
-																mDiscount,
-															);
+												{/* 동적 안내 메시지 */}
+												{(() => {
+													const infoMessages = getAllInfoMessages(
+														totalPayment,
+														cardDiscount,
+														mDiscount,
+													);
 
-															return infoMessages.map((msg, index) => (
-																<InfoMessage
-																	key={index}
-																	type={msg.type}
-																	title={msg.title}
-																	message={msg.message}
-																	secondMessage={msg.secondMessage}
-																/>
-															));
-														})()}
-													</div>
-												</>
-											);
-										})()}
-									</div>
-									<div className="flex justify-end pt-4">
-										<Qrcode />
-									</div>
-								</div>
-								<AddProductModal
-									formData={formData}
-									setFormData={setFormData}
-									onSubmit={isEditMode ? updateProduct : createProducts}
-									onCancel={handleCancel}
-									isEditMode={isEditMode}
-									mDiscount={mDiscount}
-									isOpenDetailInputModal={isOpenDetailInputModal}
-									handleCancel={handleCancel}
-								/>
-								<div className="fixed inset-x-0 bottom-0 z-50">
-									<div className="mx-auto flex w-full max-w-[580px] gap-2 bg-gray-100 px-6 pt-1 pb-8">
-										<Button
-											type="default"
-											size="large"
-											style={{ height: '56px', width: '100px' }}
-											onClick={confirmResetAll}
-										>
-											초기화
-										</Button>
-										<Button
-											type="primary"
-											size="large"
-											style={{ height: '56px', flex: 1 }}
-											onClick={showDtailModalModal}
-											icon={<PlusOutlined />}
-											iconPosition="start"
-										>
-											상품 추가하기
-										</Button>
-									</div>
-								</div>
-							</>
+													return infoMessages.map((msg, index) => (
+														<InfoMessage
+															key={index}
+															type={msg.type}
+															title={msg.title}
+															message={msg.message}
+															secondMessage={msg.secondMessage}
+														/>
+													));
+												})()}
+											</div>
+										</>
+									);
+								})()}
+							</div>
+							<div className="flex justify-end pt-4">
+								<Qrcode />
+							</div>
 						</div>
-					</div>
+						<AddProductModal
+							formData={formData}
+							setFormData={setFormData}
+							onSubmit={isEditMode ? updateProduct : createProducts}
+							onCancel={handleCancel}
+							isEditMode={isEditMode}
+							mDiscount={mDiscount}
+							isOpenDetailInputModal={isOpenDetailInputModal}
+							handleCancel={handleCancel}
+						/>
+					</>
 				</div>
+				<div className="flex justify-end">
+					<Button
+						type="text"
+						size="middle"
+						iconPosition="end"
+						icon={<RightOutlined />}
+						className="custom-select !px-1"
+						style={{ color: '#808080' }}
+						onClick={() => {
+							window.open(
+								'https://docs.google.com/forms/d/15dLG2KvVjzCiJvH_P4KsIOEArPC6H2UcMf4UhzFnxWQ/edit',
+							);
+						}}
+					>
+						문의 및 요청하기
+					</Button>
+				</div>
+			</div>
+			<div className="mx-auto flex w-full max-w-[580px] shrink-0 gap-2 bg-gray-100 px-3 pt-3 pb-5">
+				<Button
+					type="default"
+					size="large"
+					style={{ height: '48px', width: '100px' }}
+					onClick={confirmResetAll}
+				>
+					초기화
+				</Button>
+				<Button
+					type="primary"
+					size="large"
+					style={{ height: '48px', flex: 1 }}
+					onClick={showDtailModalModal}
+					icon={<PlusOutlined />}
+					iconPosition="start"
+				>
+					상품 추가하기
+				</Button>
 			</div>
 		</div>
 	);
