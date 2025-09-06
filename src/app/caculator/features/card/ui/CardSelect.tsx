@@ -1,5 +1,6 @@
 'use client';
 
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { PairDropdown } from '../../../../shared/CustomDropdown';
 import {
@@ -84,6 +85,7 @@ export default function CardSelect({ onCardDiscountChange }: CardSelectProps) {
 				setSelectedCompany('');
 				setSelectedCard('');
 				onCardDiscountChange('none');
+				message.success('카드 선택이 초기화되었습니다.');
 
 				// localStorage에서 제거
 				localStorage.removeItem('selectedCardCompany');

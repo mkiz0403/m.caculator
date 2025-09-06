@@ -1,5 +1,6 @@
 'use client';
 
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { PairDropdown } from '../../../../shared/CustomDropdown';
 import {
@@ -88,6 +89,7 @@ export default function MembershipSelect({
 				setSelectedPartner('');
 				setSelectedMembership('');
 				onMembershipDiscountChange('none');
+				message.success('멤버쉽 선택이 초기화되었습니다.');
 
 				// localStorage에서 제거
 				localStorage.removeItem('selectedMembershipPartner');
