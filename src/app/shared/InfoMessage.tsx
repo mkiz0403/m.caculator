@@ -55,20 +55,23 @@ export default function InfoMessage({
 			className={`mt-2 mb-2 flex gap-1 rounded-md border p-2 ${getTypeStyles()} ${className}`}
 		>
 			{title ? (
-				<div className="flex gap-1">
+				<div className="flex flex-col gap-1">
 					<div
-						className={`flex items-center gap-1 text-sm font-medium ${getTitleStyles()}`}
+						className={`flex items-start gap-1 text-sm font-medium ${getTitleStyles()}`}
 					>
-						<CheckCircleFilled style={{ color: '#1677ff' }} />
-						<strong className="text-blue-500">{title} : </strong>
+						<div className="flex h-5 w-13 shrink-0 items-center gap-1.5">
+							<CheckCircleFilled style={{ color: '#1677ff' }} />
+							<strong className="text-blue-500">{title} :</strong>
+						</div>
+						<div
+							className={`text-sm font-medium ${getMessageStyles()}`}
+							dangerouslySetInnerHTML={{ __html: message }}
+						/>
 					</div>
-					<div
-						className={`flex items-center justify-between text-sm font-medium ${getMessageStyles()}`}
-						dangerouslySetInnerHTML={{ __html: message }}
-					/>
+
 					{secondMessage && (
 						<div
-							className={`flex items-center justify-between text-sm font-medium ${getMessageStyles()}`}
+							className={`text-sm font-medium ${getMessageStyles()}`}
 							dangerouslySetInnerHTML={{ __html: secondMessage }}
 						/>
 					)}
