@@ -125,7 +125,7 @@ export function PairDropdown({
 						type="primary"
 						ghost={true}
 						size="middle"
-						className="custom-select w-6"
+						className="custom-select !h-9 !w-9"
 						style={{ background: 'white', border: '1px solid #D9D9D9' }}
 					>
 						<RedoOutlined />
