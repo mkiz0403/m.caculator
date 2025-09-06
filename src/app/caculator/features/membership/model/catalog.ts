@@ -14,6 +14,11 @@ export const MEMBERSHIP_PARTNERS: MembershipCatalog = {
 				message: '1,000원당 100원 할인',
 				calc: (amount: number) => Math.floor(amount / 1000) * 100,
 			},
+			twosome: {
+				label: '투썸플레이스 (우주패스)',
+				message: '30% 할인, 최대 하루 9천원',
+				calc: (amount: number) => amount * 0.3,
+			},
 		},
 	},
 };

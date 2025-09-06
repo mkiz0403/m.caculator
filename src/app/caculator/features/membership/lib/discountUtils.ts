@@ -1,7 +1,11 @@
 import { MEMBERSHIP_PARTNERS } from '../model/catalog';
 import type { MembershipInfoMessage } from '../model/types';
 
-export type MembershipDiscountType = 'none' | 'sevenEarth' | 'sevenT';
+export type MembershipDiscountType =
+	| 'none'
+	| 'sevenEarth'
+	| 'sevenT'
+	| 'twosome';
 
 export interface MembershipDiscountInfo {
 	type: MembershipDiscountType;
@@ -55,6 +59,7 @@ export function getMembershipDiscountType(
 	if (partner === 'SKT') {
 		if (membership === '세븐일레븐 (우주패스)') return 'sevenEarth';
 		if (membership === '세븐일레븐 (T할인)') return 'sevenT';
+		if (membership === '투썸플레이스 (우주패스)') return 'twosome';
 	}
 	return 'none';
 }

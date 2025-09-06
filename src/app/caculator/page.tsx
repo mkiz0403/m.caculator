@@ -80,7 +80,12 @@ export default function Receipt() {
 					setProducts(safe as Product[]);
 				}
 			}
-			if (md === 'none' || md === 'sevenEarth' || md === 'sevenT') {
+			if (
+				md === 'none' ||
+				md === 'sevenEarth' ||
+				md === 'sevenT' ||
+				md === 'twosome'
+			) {
 				setMDiscount(md as typeof mDiscount);
 			}
 			if (cd === 'none' || cd === 'theMoa' || cd === 'HDzero') {

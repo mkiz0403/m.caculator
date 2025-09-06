@@ -17,7 +17,7 @@ interface AddProductProps {
 	onSubmit: () => void;
 	onCancel: () => void;
 	isEditMode?: boolean;
-	mDiscount: 'none' | 'sevenEarth' | 'sevenT';
+	mDiscount: 'none' | 'sevenEarth' | 'sevenT' | 'twosome';
 	isOpenDetailInputModal: boolean;
 	handleCancel: () => void;
 }
