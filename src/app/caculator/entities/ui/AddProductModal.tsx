@@ -51,16 +51,6 @@ export default function AddProductModal({
 					className="flex w-full flex-col gap-4 p-2"
 					onFinish={handleSubmit}
 				>
-					{(mDiscount === 'sevenT' || mDiscount === 'sevenEarth') && (
-						<div
-							className={`flex gap-1 rounded-md border border-red-300 bg-red-100 p-2`}
-						>
-							<span className={'text-xs text-red-400'}>
-								1+1, 2+1 등 할인 상품 및 주류, 담배 등은 멤버쉽 할인 대상이
-								아닙니다
-							</span>
-						</div>
-					)}
 					<div className="flex w-full flex-col gap-1">
 						<span>상품명</span>
 						<Input
@@ -139,7 +129,7 @@ export default function AddProductModal({
 							</Select>
 						</div>
 					</div>
-					<div className="flex flex-col gap-0.5">
+					<div className="flex flex-col gap-1">
 						<div className="flex gap-2">
 							<Checkbox
 								checked={formData.isDiscount}
@@ -150,9 +140,23 @@ export default function AddProductModal({
 							<span>할인 제외 품목</span>
 						</div>
 						{mDiscount === 'none' && (
-							<span className="text-xs text-red-400">
-								멤버쉽 또는 카드할인에서 제외되는 상품일 경우 체크해주세요
-							</span>
+							<div
+								className={`flex gap-1 rounded-md border border-red-300 bg-red-50 p-2`}
+							>
+								<span className="text-xs text-red-400">
+									멤버십 또는 카드할인에서 제외되는 상품일 경우 체크해주세요
+								</span>
+							</div>
+						)}
+						{(mDiscount === 'sevenT' || mDiscount === 'sevenEarth') && (
+							<div
+								className={`flex gap-1 rounded-md border border-red-300 bg-red-50 p-2`}
+							>
+								<span className={'text-xs text-red-400'}>
+									{`${mDiscount == 'sevenEarth' ? '우주 패스' : 'T 할인'} 할인 제외 품목 : 주류 및 담배, 1+1 등의 할인
+									상품`}
+								</span>
+							</div>
 						)}
 					</div>
 					<div className="flex justify-between gap-2">

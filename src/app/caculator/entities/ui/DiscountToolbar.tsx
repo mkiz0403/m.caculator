@@ -1,3 +1,3 @@
 export default function DiscountToolbar() {
-	return <div>멤버쉽, 카드할인 툴바</div>;
+	return <div>멤버십, 카드할인 툴바</div>;
 }

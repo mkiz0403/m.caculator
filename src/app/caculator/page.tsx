@@ -412,10 +412,10 @@ export default function Receipt() {
 										)
 									: 0;
 
-								// 멤버쉽 할인 금액
-								// ✅ 멤버쉽 할인 적용 조건:
+								// 멤버십 할인 금액
+								// ✅ 멤버십 할인 적용 조건:
 								// 1. 할인 제외 품목이 아님 (!product.isDiscount)
-								// 2. 멤버쉽이 선택됨 (mDiscount !== 'none')
+								// 2. 멤버십이 선택됨 (mDiscount !== 'none')
 								// 3. 추가 할인이 없음 (product.discountValue === 0)
 								const membershipDiscountAmount =
 									!product.isDiscount &&
@@ -425,7 +425,7 @@ export default function Receipt() {
 										: 0;
 
 								// 총 할인 금액 계산
-								// 카드 할인은 항상 적용, 멤버쉽 할인은 추가할인이 없을 때만 적용
+								// 카드 할인은 항상 적용, 멤버십 할인은 추가할인이 없을 때만 적용
 								const cardDiscountAmount = getCardDiscountAmount(
 									totalPrice,
 									cardDiscount,
@@ -435,7 +435,7 @@ export default function Receipt() {
 								const totalDiscountAmount =
 									membershipDiscountAmount + productDiscountAmount;
 
-								// 최종 가격 (멤버쉽 할인 또는 추가 할인이 있을 때만 할인 적용)
+								// 최종 가격 (멤버십 할인 또는 추가 할인이 있을 때만 할인 적용)
 								const finalPrice = Math.max(
 									0,
 									totalPrice - totalDiscountAmount,
@@ -463,7 +463,7 @@ export default function Receipt() {
 													</span>
 												)}
 
-												{/* 멤버쉽 할인 (할인 제외 품목이 아니고 추가 할인이 0인 경우만) */}
+												{/* 멤버십 할인 (할인 제외 품목이 아니고 추가 할인이 0인 경우만) */}
 												{!product.isDiscount &&
 													mDiscount !== 'none' &&
 													product.discountValue === 0 &&
@@ -534,22 +534,22 @@ export default function Receipt() {
 										return sum;
 									}, 0);
 
-									// 멤버쉽 할인 총액
-									// ✅ 멤버쉽 할인 적용 조건:
+									// 멤버십 할인 총액
+									// ✅ 멤버십 할인 적용 조건:
 									// 1. 할인 제외 품목이 아님 (!product.isDiscount)
-									// 2. 멤버쉽이 선택됨 (mDiscount !== 'none')
+									// 2. 멤버십이 선택됨 (mDiscount !== 'none')
 									// 3. 추가 할인이 없음 (product.discountValue === 0)
 									const membershipDiscountTotal =
 										excludedProducts.length > 0 && mDiscount !== 'none'
 											? excludedProducts.reduce((sum, product) => {
-													// 🚫 멤버쉽 할인 제외 조건:
+													// 🚫 멤버십 할인 제외 조건:
 													// 1. 할인 제외 품목 (product.isDiscount = true)
 													// 2. 추가 할인이 적용된 상품 (product.discountValue > 0)
 													if (product.isDiscount || product.discountValue > 0) {
-														return sum; // 멤버쉽 할인 제외
+														return sum; // 멤버십 할인 제외
 													}
 
-													// ✅ 멤버쉽 할인 적용 조건:
+													// ✅ 멤버십 할인 적용 조건:
 													// - 할인 제외 품목이 아님 (product.isDiscount = false)
 													// - 추가 할인이 없음 (product.discountValue = 0)
 													return (
@@ -614,7 +614,7 @@ export default function Receipt() {
 												</div>
 												<div className="flex justify-between text-sm">
 													<span className="text-gray-400">
-														할인 적용 금액 (멤버쉽):{' '}
+														할인 적용 금액 (멤버십):{' '}
 													</span>
 													<span className="text-blue-500">
 														(-) {membershipDiscountTotal.toLocaleString()}원

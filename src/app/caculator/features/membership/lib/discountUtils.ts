@@ -12,14 +12,14 @@ export interface MembershipDiscountInfo {
 }
 
 /**
- * 멤버쉽 할인 타입에 따른 할인 정보를 반환
+ * 멤버십 할인 타입에 따른 할인 정보를 반환
  */
 export function getMembershipDiscountInfo(
 	discountType: MembershipDiscountType,
 ): MembershipDiscountInfo | null {
 	if (discountType === 'none') return null;
 
-	// 모든 파트너와 멤버쉽을 순회하며 해당 할인 타입을 찾기
+	// 모든 파트너와 멤버십을 순회하며 해당 할인 타입을 찾기
 	for (const [partnerKey, partner] of Object.entries(MEMBERSHIP_PARTNERS)) {
 		for (const [membershipKey, membership] of Object.entries(
 			partner.memberships,
@@ -46,7 +46,7 @@ export function getMembershipDiscountInfo(
 }
 
 /**
- * 파트너와 멤버쉽명으로 할인 타입을 결정
+ * 파트너와 멤버십명으로 할인 타입을 결정
  */
 export function getMembershipDiscountType(
 	partner: string,
@@ -60,7 +60,7 @@ export function getMembershipDiscountType(
 }
 
 /**
- * 선택된 파트너와 멤버쉽으로부터 할인 정보를 생성
+ * 선택된 파트너와 멤버십으로부터 할인 정보를 생성
  */
 export function createMembershipDiscountFromSelection(
 	selectedPartner: string,
@@ -74,7 +74,7 @@ export function createMembershipDiscountFromSelection(
 }
 
 /**
- * 멤버쉽 할인 타입에 따른 할인 금액을 계산
+ * 멤버십 할인 타입에 따른 할인 금액을 계산
  */
 export function calculateMembershipDiscount(
 	amount: number,
@@ -85,7 +85,7 @@ export function calculateMembershipDiscount(
 	const discountInfo = getMembershipDiscountInfo(discountType);
 	if (!discountInfo) return 0;
 
-	// 카탈로그에서 해당 멤버쉽의 calc 함수를 찾아서 실행
+	// 카탈로그에서 해당 멤버십의 calc 함수를 찾아서 실행
 	for (const [partnerKey, partner] of Object.entries(MEMBERSHIP_PARTNERS)) {
 		for (const [membershipKey, membership] of Object.entries(
 			partner.memberships,
@@ -118,7 +118,7 @@ function replaceMessageVariables(
 }
 
 /**
- * 멤버쉽 할인 타입에 따른 안내 메시지 생성 (catalog 기반)
+ * 멤버십 할인 타입에 따른 안내 메시지 생성 (catalog 기반)
  */
 export function getMembershipInfoMessages(
 	discountType: MembershipDiscountType,
@@ -129,7 +129,7 @@ export function getMembershipInfoMessages(
 
 	if (discountType === 'none') return messages;
 
-	// 카탈로그에서 해당 멤버쉽의 infoMessages 찾기
+	// 카탈로그에서 해당 멤버십의 infoMessages 찾기
 	for (const [partnerKey, partner] of Object.entries(MEMBERSHIP_PARTNERS)) {
 		for (const [membershipKey, membership] of Object.entries(
 			partner.memberships,

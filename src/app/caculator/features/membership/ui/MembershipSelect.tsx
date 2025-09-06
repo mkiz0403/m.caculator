@@ -29,7 +29,7 @@ export default function MembershipSelect({
 		}
 		if (savedMembership) {
 			setSelectedMembership(savedMembership);
-			// 복원된 멤버쉽에 따른 할인 타입 설정
+			// 복원된 멤버십에 따른 할인 타입 설정
 			const discountType = getMembershipDiscountType(
 				savedPartner || '',
 				savedMembership,
@@ -61,11 +61,11 @@ export default function MembershipSelect({
 
 	return (
 		<PairDropdown
-			firstLabel="멤버쉽"
+			firstLabel="멤버십"
 			firstItems={partnerItems}
 			secondItems={membershipItems}
 			firstPlaceholder="제휴사"
-			secondPlaceholder="멤버쉽"
+			secondPlaceholder="멤버십"
 			onFirstSelect={(key: string) => {
 				setSelectedPartner(key);
 				setSelectedMembership(''); // 파트너 변경 시 멤버십 초기화
@@ -84,12 +84,12 @@ export default function MembershipSelect({
 				localStorage.setItem('selectedMembership', key);
 			}}
 			firstChildren={selectedPartner || '제휴사 '}
-			secondChildren={selectedMembership || '멤버쉽'}
+			secondChildren={selectedMembership || '멤버십'}
 			onReset={() => {
 				setSelectedPartner('');
 				setSelectedMembership('');
 				onMembershipDiscountChange('none');
-				message.success('멤버쉽 선택이 초기화되었습니다.');
+				message.success('멤버십 선택이 초기화되었습니다.');
 
 				// localStorage에서 제거
 				localStorage.removeItem('selectedMembershipPartner');

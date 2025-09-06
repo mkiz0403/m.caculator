@@ -42,7 +42,7 @@ export function getAllAppliedDiscounts(
 		});
 	}
 
-	// 멤버쉽 할인 정보 추가
+	// 멤버십 할인 정보 추가
 	const membershipInfo = getMembershipDiscountInfo(membershipDiscount);
 	if (membershipInfo) {
 		discounts.push({
@@ -75,7 +75,7 @@ export function hasAnyDiscount(
 }
 
 /**
- * 총 할인 금액을 계산 (카드 + 멤버쉽)
+ * 총 할인 금액을 계산 (카드 + 멤버십)
  */
 export function calculateTotalDiscount(
 	amount: number,
@@ -102,7 +102,7 @@ export function getCardDiscountAmount(
 }
 
 /**
- * 멤버쉽 할인 금액만 계산
+ * 멤버십 할인 금액만 계산
  */
 export function getMembershipDiscountAmount(
 	amount: number,
@@ -133,7 +133,7 @@ export function calculateFinalAmount(
 export type InfoMessage = CardInfoMessage | MembershipInfoMessage;
 
 /**
- * 모든 안내 메시지를 가져오기 (카드 + 멤버쉽)
+ * 모든 안내 메시지를 가져오기 (카드 + 멤버십)
  */
 export function getAllInfoMessages(
 	totalAmount: number,
@@ -151,7 +151,7 @@ export function getAllInfoMessages(
 	);
 	messages.push(...cardMessages);
 
-	// 멤버쉽 안내 메시지
+	// 멤버십 안내 메시지
 	const membershipDiscountAmount = getMembershipDiscountAmount(
 		totalAmount,
 		membershipDiscount,

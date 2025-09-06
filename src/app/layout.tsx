@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 		],
 	},
 	themeColor: '#f3f4f6',
-	description: '앱을 통해 멤버쉽 할인과 카드 할인을 효율적으로 사용하세요',
+	description: '앱을 통해 멤버십 할인과 카드 할인을 효율적으로 사용하세요',
 	icons: [
 		{ rel: 'icon', url: '/icons/save-192x192.png' },
 		{
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
 	},
 	// openGraph: {
 	// 	title: '자린고비 계산기',
-	// 	description: '앱을 통해 멤버쉽 할인과 카드 할인을 효율적으로 사용하세요',
+	// 	description: '앱을 통해 멤버십 할인과 카드 할인을 효율적으로 사용하세요',
 	// 	url: '', // 배포 URL
 	// 	siteName: '자린고비 계산기',
 	// 	images: [
