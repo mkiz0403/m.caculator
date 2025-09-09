@@ -20,7 +20,12 @@ const redirects: Record<string, string> = {
 		'https://saltboy.store/?utm_source=naverblog&utm_medium=social&utm_campaign=launch_share&utm_content=naverblog',
 };
 
-export default function RedirectPage({ params }: { params: { slug: string } }) {
-	const url = redirects[params.slug] ?? 'https://saltboy.store';
+export default async function RedirectPage({
+	params,
+}: {
+	params: Promise<{ slug: string }>;
+}) {
+	const { slug } = await params;
+	const url = redirects[slug] ?? 'https://saltboy.store';
 	redirect(url);
 }
