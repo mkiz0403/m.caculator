@@ -3,7 +3,7 @@ import Image from 'next/image';
 import QRCode from 'react-qr-code';
 
 export default function QrSaltboy({
-	url = 'https://saltboy.store',
+	url = 'https://saltboy.store/r/share',
 }: {
 	url?: string;
 }) {
@@ -11,12 +11,12 @@ export default function QrSaltboy({
 		if (navigator.share) {
 			navigator
 				.share({
-					url: 'https://saltboy.store', // 또는 특정 이미지 주소
+					url: 'https://saltboy.store/r/share', // 또는 특정 이미지 주소
 				})
 				.then(() => console.log('✅ 공유 성공'))
 				.catch((err) => console.error('❌ 공유 실패', err));
 		} else {
-			await navigator.clipboard.writeText('https://saltboy.store');
+			await navigator.clipboard.writeText('https://saltboy.store/r/share');
 			alert('주소가 복사되었습니다 📋');
 		}
 	};

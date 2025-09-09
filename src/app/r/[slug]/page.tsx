@@ -18,6 +18,8 @@ const redirects: Record<string, string> = {
 		'https://saltboy.store/?utm_source=instagram&utm_medium=social&utm_campaign=launch_share&utm_content=instagram',
 	naverblog:
 		'https://saltboy.store/?utm_source=naverblog&utm_medium=social&utm_campaign=launch_share&utm_content=naverblog',
+	shared:
+		'https://saltboy.store/?utm_source=shared&utm_medium=social&utm_campaign=launch_share&utm_content=shared',
 };
 
 export default async function RedirectPage({
