@@ -443,7 +443,11 @@ export default function Receipt() {
 								// 최종 가격 (멤버십 할인 또는 추가 할인이 있을 때만 할인 적용)
 								const finalPrice = Math.max(
 									0,
-									totalPrice - totalDiscountAmount,
+									mDiscount !== 'none' &&
+										product.discountValue === 0 &&
+										!product.isDiscount
+										? totalPrice
+										: totalPrice - totalDiscountAmount,
 								);
 
 								return (
@@ -473,9 +477,7 @@ export default function Receipt() {
 													mDiscount !== 'none' &&
 													product.discountValue === 0 &&
 													membershipDiscountAmount > 0 && (
-														<span className="text-xs text-black">
-															{membershipDiscountAmount.toLocaleString()}
-														</span>
+														<span className="text-xs text-black">M 할인</span>
 													)}
 											</div>
 										</td>
@@ -544,26 +546,29 @@ export default function Receipt() {
 									// 1. 할인 제외 품목이 아님 (!product.isDiscount)
 									// 2. 멤버십이 선택됨 (mDiscount !== 'none')
 									// 3. 추가 할인이 없음 (product.discountValue === 0)
-									const membershipDiscountTotal =
-										excludedProducts.length > 0 && mDiscount !== 'none'
-											? excludedProducts.reduce((sum, product) => {
-													// 🚫 멤버십 할인 제외 조건:
-													// 1. 할인 제외 품목 (product.isDiscount = true)
-													// 2. 추가 할인이 적용된 상품 (product.discountValue > 0)
-													if (product.isDiscount || product.discountValue > 0) {
-														return sum; // 멤버십 할인 제외
-													}
 
-													// ✅ 멤버십 할인 적용 조건:
-													// - 할인 제외 품목이 아님 (product.isDiscount = false)
-													// - 추가 할인이 없음 (product.discountValue = 0)
-													return (
-														sum +
-														calculateMembershipDiscount(
-															product.price * product.quantity,
-														)
-													);
-												}, 0)
+									// 먼저 멤버십 적용 가능한 상품들의 총 금액을 계산
+									const membershipEligibleTotal = excludedProducts.reduce(
+										(sum, product) => {
+											// 🚫 멤버십 할인 제외 조건:
+											// 1. 할인 제외 품목 (product.isDiscount = true)
+											// 2. 추가 할인이 적용된 상품 (product.discountValue > 0)
+											if (product.isDiscount || product.discountValue > 0) {
+												return sum; // 멤버십 할인 제외
+											}
+
+											// ✅ 멤버십 할인 적용 조건:
+											// - 할인 제외 품목이 아님 (product.isDiscount = false)
+											// - 추가 할인이 없음 (product.discountValue = 0)
+											return sum + product.price * product.quantity;
+										},
+										0,
+									);
+
+									// 멤버십 적용 가능한 총 금액에 대해 멤버십 할인 적용
+									const membershipDiscountTotal =
+										membershipEligibleTotal > 0 && mDiscount !== 'none'
+											? calculateMembershipDiscount(membershipEligibleTotal)
 											: 0;
 
 									// 총 결제 금액 (더모아 할인 제외)
