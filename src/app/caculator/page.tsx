@@ -587,7 +587,7 @@ export default function Receipt() {
 												)
 											: 0;
 
-									// 더모아 최대 할인 가능 금액
+									// 더모아 최대 할인 가능 금액.
 									const maxTheMoaDiscount =
 										cardDiscount === 'theMoa'
 											? calculateMaxTheMoaDiscount(totalPaymentBeforeTheMoa)
